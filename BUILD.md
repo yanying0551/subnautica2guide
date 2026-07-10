@@ -34,7 +34,7 @@
 | 🔍 404 | `/_not-found/` | Custom 404 |
 
 ## Key Features
-- ✅ **Next.js 16.2.9 SSG** — fully static export to `out/`
+- ✅ **Next.js 16.2.9 + OpenNext** — server-rendered on Cloudflare Workers
 - ✅ **Tailwind CSS v4** — Ocean-blue design system (#0ea5e9)
 - ✅ **TL;DR first** — every guide starts with a quick answer box
 - ✅ **FAQ with `<details><summary>`** — native HTML, no JS
@@ -44,13 +44,18 @@
 - ✅ **Legal pages** — Privacy, Terms, Cookie, Disclaimer
 - ✅ **Custom 404 page**
 - ✅ **Responsive design** — mobile-first, flex/grid layout
-- ✅ **No backend** — pure static, deploy to Cloudflare Pages
+- ✅ **Cloudflare Worker runtime** — locale routing uses cookies, headers, and Next.js middleware
 
-## Deploy to Cloudflare Pages
-1. Set build command: `npm run build`
-2. Set output directory: `out`
-3. Root path: `/` (English default)
-4. For Chinese subdomain, build with separate config
+## Deploy to Cloudflare Workers
+
+The application uses OpenNext because its locale routing depends on Next.js
+middleware, request cookies, and request headers. Do not deploy `out/` or use a
+static Cloudflare Pages output directory.
+
+1. Install dependencies: `npm ci`
+2. Build the Worker bundle: `npm run preview` (builds and starts a local preview)
+3. Deploy the Worker: `npm run deploy`
+4. Configure any production secrets or analytics variables in Cloudflare, not in Git.
 
 ## Dev server
 ```bash

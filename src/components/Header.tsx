@@ -74,6 +74,18 @@ export function Header() {
     };
   }, [drawerOpen]);
 
+  // Close the mobile-only drawer when its trigger becomes unavailable at the
+  // desktop breakpoint. This also releases the focus trap and scroll lock.
+  useEffect(() => {
+    const closeOnDesktop = () => {
+      if (window.innerWidth >= 768) setDrawerOpen(false);
+    };
+
+    window.addEventListener("resize", closeOnDesktop);
+    closeOnDesktop();
+    return () => window.removeEventListener("resize", closeOnDesktop);
+  }, []);
+
   // When the drawer opens: move focus into it (to the close button, which is
   // the first meaningful control). When it closes: restore focus to the
   // hamburger button that opened it.
@@ -167,6 +179,7 @@ export function Header() {
           <Link
             href="https://store.steampowered.com/app/1962700/Subnautica_2/"
             target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium bg-deep-400/10 text-deep-300 border border-deep-400/25 px-3.5 py-1.5 rounded-full hover:bg-deep-400/20 hover:border-deep-400/40 transition-colors"
           >
             <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26.81-1 1.39-1.9 1.39h-1v-3c0-1.1-.9-2-2-2H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
@@ -175,9 +188,10 @@ export function Header() {
         </div>
       </div>
 
+      {drawerOpen && (
+        <>
       {/* Mobile sidebar overlay.
-          Decorative backdrop — hidden from AT by aria-hidden and inert while
-          closed. Treated as part of a dialog with the drawer panel. */}
+          Decorative backdrop — hidden from AT by aria-hidden. */}
       <div
         className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
           drawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -260,6 +274,7 @@ export function Header() {
             <Link
               href="https://store.steampowered.com/app/1962700/Subnautica_2/"
               target="_blank"
+              rel="noopener noreferrer"
               onClick={closeDrawer}
               className="flex items-center justify-center gap-2 text-sm font-medium bg-deep-400/10 text-deep-300 border border-deep-400/25 px-4 py-2.5 rounded-lg hover:bg-deep-400/20 hover:border-deep-400/40 transition-colors w-full"
             >
@@ -269,6 +284,8 @@ export function Header() {
           </div>
         </div>
       </div>
+        </>
+      )}
     </header>
   );
 }
