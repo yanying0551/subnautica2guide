@@ -64,7 +64,20 @@ export default async function RootLayout({
       className={`${manrope.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <head>
-        {/* Analytics are injected only when real IDs are configured. */}
+        {/* Privacy-friendly analytics by Plausible. */}
+        <script
+          async
+          src="https://plausible.shipsolo.io/js/pa-_Pi62oDF-K3FFKudE4D1K.js"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+              plausible.init();
+            `,
+          }}
+        />
+        {/* Optional GA4 and Clarity analytics are injected only when configured. */}
         {gaId ? (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
