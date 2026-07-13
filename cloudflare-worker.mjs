@@ -13,7 +13,12 @@ const REVIEW_PATH_PREFIXES = [
   "/updates",
 ];
 
+// A route leaves the review quarantine only after its evidence brief and
+// page copy pass editorial review. Keep this list deliberately exact.
+const VERIFIED_PATHS = new Set(["/guides/multiplayer"]);
+
 function needsSourceReview(pathname) {
+  if (VERIFIED_PATHS.has(pathname)) return false;
   return REVIEW_PATH_PREFIXES.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );

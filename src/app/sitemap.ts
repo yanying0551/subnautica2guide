@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/disclaimer",
     "/editorial-policy",
     "/info/system-requirements",
+    "/guides/multiplayer",
   ];
 
   const priorityMap: Record<string, number> = {
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/disclaimer": 0.3,
     "/editorial-policy": 0.4,
     "/info/system-requirements": 0.6,
+    "/guides/multiplayer": 0.6,
   };
 
   const frequencyMap: Record<string, string> = {
@@ -35,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/cookie-policy": "yearly",
     "/disclaimer": "yearly",
     "/info/system-requirements": "monthly",
+    "/guides/multiplayer": "monthly",
   } as Record<string, string>;
 
   const result: MetadataRoute.Sitemap = [];
