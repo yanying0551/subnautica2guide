@@ -15,6 +15,8 @@ const REVIEW_PATH_PREFIXES = [
 
 // A route leaves the review quarantine only after its evidence brief and
 // page copy pass editorial review. Keep this list deliberately exact.
+// This file is the production Worker entry point; Git builds must deploy it
+// together with the generated OpenNext worker bundle.
 const VERIFIED_PATHS = new Set(["/guides/multiplayer"]);
 
 function needsSourceReview(pathname) {
