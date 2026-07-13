@@ -30,7 +30,9 @@ describe("content verification guardrails", () => {
     expect(worker).toContain("noindex, follow");
     expect(worker).toContain("/guides");
     expect(worker).toContain("/resources");
+    expect(worker).not.toContain('"/info"');
     expect(sitemap).not.toContain('"/guides"');
     expect(sitemap).not.toContain('"/resources"');
+    expect(sitemap).toContain('"/info/system-requirements"');
   });
 });

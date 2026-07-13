@@ -14,7 +14,7 @@
 
 | Priority | Route | Localized route | Content type | Risk | Status | Known issue | Required evidence before re-indexing |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0 | `/info/system-requirements` | `/zh-cn/info/system-requirements` | PC requirements/performance | High | Under source review | Contains exact PC specs, engine features, Steam Deck status, frame rates, upscaler support, and benchmark claims without an attached source brief. | Current official store/support specification; dated platform/version scope; remove unsupported performance claims. |
+| P0 | `/info/system-requirements` | `/zh-cn/info/system-requirements` | PC requirements | Medium | Verified | Rewritten to the current official Steam-listed requirements; unsupported engine, Steam Deck, frame-rate, upscaler, and benchmark claims removed. | Recheck after a Steam listing or game update changes the requirements. |
 | P0 | `/updates/roadmap` | `/zh-cn/updates/roadmap` | roadmap/release information | High | Under source review | Dates and future plans are especially likely to change. | Official announcement or patch-note source for each date/feature; source date; revision log. |
 | P0 | `/guides/multiplayer` | `/zh-cn/guides/multiplayer` | co-op/cross-play | High | Under source review | Player-count, platform, and cross-play statements require official or versioned verification. | Official feature/support source or documented current-build verification. |
 | P0 | `/guides/beginner-guide` | `/zh-cn/guides/beginner-guide` | progression/how-to | High | Under source review | Likely to contain version-sensitive mechanics and progression detail. | Evidence brief for every material step, with applicable build/version. |
@@ -43,3 +43,4 @@
 | Date | Route(s) | Action | Result |
 | --- | --- | --- | --- |
 | 2026-07-13 | detailed gameplay routes | Search quarantine introduced; routes removed from Sitemap. | Under source review; `X-Robots-Tag: noindex, follow` applied. |
+| 2026-07-13 | `/info/system-requirements` | Created a Steam evidence brief, rewrote page to source-backed PC requirements, restored Sitemap inclusion. | Verified; recheck after official requirements change. |

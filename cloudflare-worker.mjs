@@ -11,7 +11,6 @@ const REVIEW_PATH_PREFIXES = [
   "/base-building",
   "/biomods",
   "/updates",
-  "/info",
 ];
 
 function needsSourceReview(pathname) {
