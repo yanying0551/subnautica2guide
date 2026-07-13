@@ -21,8 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const isZh = locale === "zh";
   const description = isZh
-    ? "深海迷航2 终极粉丝指南。查找生物位置、资源地图、基地建造技巧、联机指南、新手攻略和抢先体验更新追踪。内容已针对抢先体验版更新。"
-    : "The ultimate fan-made Subnautica 2 guide. Find creature locations, resource maps, base building tips, co-op guides, beginner walkthroughs, and EA update tracker. Updated for Early Access.";
+    ? "深海迷航2独立粉丝指南。详细玩法内容正在进行来源审查，尚不应视为已经核验的参考资料。"
+    : "An independent fan guide for Subnautica 2. Detailed gameplay content is under source review and should not be treated as verified reference material.";
 
   return {
     title: {
@@ -36,8 +36,8 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: isZh ? "深海迷航2 指南" : "Subnautica 2 Guide",
       description: isZh
-        ? "深海迷航2 终极粉丝指南——涵盖攻略、生物、资源、基地建造、联机等内容。"
-        : "The ultimate fan-made Subnautica 2 guide — creatures, resources, base building, co-op, and more.",
+        ? "深海迷航2独立粉丝指南；详细玩法内容正在进行来源审查。"
+        : "An independent fan guide for Subnautica 2; detailed gameplay content is under source review.",
       siteName: isZh ? "深海迷航2 指南" : "Subnautica 2 Guide",
       type: "website",
     },
@@ -116,7 +116,7 @@ export default async function RootLayout({
               name: "Subnautica 2 Guide",
               url: "https://subnautica2guide.wiki",
               description:
-                "The ultimate fan-made Subnautica 2 guide — walkthroughs, creatures, resources, base building, and co-op guides.",
+                "An independent fan guide for Subnautica 2; detailed gameplay content is under source review.",
             }),
           }}
         />

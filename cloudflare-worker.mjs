@@ -2,6 +2,24 @@ import openNextWorker from "./.open-next/worker.js";
 
 const ZH_PREFIX = "/zh-cn";
 
+// Detailed gameplay pages remain available to readers, but are excluded from
+// search results until their version-specific claims have attributable sources.
+const REVIEW_PATH_PREFIXES = [
+  "/guides",
+  "/resources",
+  "/creatures",
+  "/base-building",
+  "/biomods",
+  "/updates",
+  "/info",
+];
+
+function needsSourceReview(pathname) {
+  return REVIEW_PATH_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
+
 const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -36,7 +54,17 @@ const worker = {
       redirect: request.redirect,
     });
 
-    return openNextWorker.fetch(internalRequest, env, ctx);
+    const response = await openNextWorker.fetch(internalRequest, env, ctx);
+
+    if (!needsSourceReview(url.pathname)) return response;
+
+    const responseHeaders = new Headers(response.headers);
+    responseHeaders.set("X-Robots-Tag", "noindex, follow");
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: responseHeaders,
+    });
   },
 };
 
