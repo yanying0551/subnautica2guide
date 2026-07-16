@@ -1,47 +1,29 @@
 import openNextWorker from "./.open-next/worker.js";
-
-const ZH_PREFIX = "/zh-cn";
+import {
+  buildInternalRequest,
+  classifyRequestPath,
+} from "./content-indexing.mjs";
+import {
+  applyResponsePolicy,
+  buildHttpsRedirect,
+} from "./response-policy.mjs";
 
 // Detailed gameplay pages remain available to readers, but are excluded from
 // search results until their version-specific claims have attributable sources.
-const REVIEW_PATH_PREFIXES = [
-  "/guides",
-  "/resources",
-  "/creatures",
-  "/base-building",
-  "/biomods",
-  "/updates",
-];
-
-// A route leaves the review quarantine only after its evidence brief and
-// page copy pass editorial review. Keep this list deliberately exact.
-// This file is the production Worker entry point; Git builds must deploy it
-// together with the generated OpenNext worker bundle.
-const VERIFIED_PATHS = new Set(["/guides/multiplayer"]);
-
-function needsSourceReview(pathname) {
-  if (VERIFIED_PATHS.has(pathname)) return false;
-  return REVIEW_PATH_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
-}
-
 const worker = {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    const headers = new Headers(request.headers);
-    let locale;
+    const httpsRedirect = buildHttpsRedirect(request);
+    if (httpsRedirect) return httpsRedirect;
 
-    if (url.pathname === ZH_PREFIX || url.pathname.startsWith(`${ZH_PREFIX}/`)) {
-      url.pathname = url.pathname.slice(ZH_PREFIX.length) || "/";
-      locale = "zh";
-    } else {
-      locale = "en";
-    }
+    const url = new URL(request.url);
+    const publicRequestUrl = url.toString();
+    const headers = new Headers(request.headers);
+    const route = classifyRequestPath(url.pathname);
+
+    url.pathname = route.internalPath;
+    const locale = route.locale;
 
     // OpenNext may filter custom request headers before Next middleware runs.
-    // Pass the route-derived locale through both a header and an internal
-    // cookie; the middleware turns it into the public preference cookie.
     headers.set("x-locale", locale);
     const cookies = (headers.get("cookie") || "")
       .split(";")
@@ -50,26 +32,14 @@ const worker = {
     cookies.push(`locale=${locale}`);
     headers.set("cookie", cookies.join("; "));
 
-    const internalRequest = new Request(url, {
-      method: request.method,
-      headers,
-      body:
-        request.method === "GET" || request.method === "HEAD"
-          ? undefined
-          : request.body,
-      redirect: request.redirect,
-    });
-
+    const internalRequest = buildInternalRequest(request, url, headers);
     const response = await openNextWorker.fetch(internalRequest, env, ctx);
 
-    if (!needsSourceReview(url.pathname)) return response;
-
-    const responseHeaders = new Headers(response.headers);
-    responseHeaders.set("X-Robots-Tag", "noindex, follow");
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: responseHeaders,
+    return applyResponsePolicy(response, {
+      locale,
+      needsSourceReview: route.needsSourceReview,
+      publicRequestUrl,
+      isHttps: true,
     });
   },
 };

@@ -55,8 +55,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
 
   return (
     <html
@@ -77,35 +75,6 @@ export default async function RootLayout({
             `,
           }}
         />
-        {/* Optional GA4 and Clarity analytics are injected only when configured. */}
-        {gaId ? (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', ${JSON.stringify(gaId)});
-                `,
-              }}
-            />
-          </>
-        ) : null}
-        {clarityId ? (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(c,l,a,r,i,t,y){
-                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                })(window, document, "clarity", "script", ${JSON.stringify(clarityId)});
-              `,
-            }}
-          />
-        ) : null}
         {/* Schema: WebSite */}
         <script
           type="application/ld+json"

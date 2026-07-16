@@ -37,7 +37,10 @@ export function middleware(request: NextRequest) {
       )
     : NextResponse.next({ request: { headers: requestHeaders } });
 
-  response.cookies.set("locale", isChinese ? "zh" : "en", COOKIE_OPTIONS);
+  response.cookies.set("locale", isChinese ? "zh" : "en", {
+    ...COOKIE_OPTIONS,
+    secure: request.nextUrl.protocol === "https:",
+  });
   return response;
 }
 

@@ -7,8 +7,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: pick("Cookie Policy", "Cookie 政策", locale),
     description: pick(
-      "How Subnautica 2 Guide uses cookies and how you can control them.",
-      "深海迷航2 指南如何使用 Cookie 以及你如何控制它们。",
+      "The functional and security cookies currently used by Subnautica 2 Guide.",
+      "深海迷航2 指南当前使用的功能性和安全 Cookie。",
       locale,
     ),
     alternates: getAlternates("/cookie-policy", locale),
@@ -18,73 +18,66 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function CookiePolicy() {
   const locale = await getLocale();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 page-content">
-      <h1 className="text-3xl font-bold text-deep-100 mb-2">{pick("Cookie Policy", "Cookie 政策", locale)}</h1>
-      <p className="text-sm text-deep-400/50 mb-8">{pick("Last updated: June 29, 2026", "最后更新：2026年6月29日", locale)}</p>
+    <div className="page-content mx-auto max-w-3xl px-4 py-10">
+      <h1 className="mb-2 text-3xl font-bold text-deep-100">{pick("Cookie Policy", "Cookie 政策", locale)}</h1>
+      <p className="mb-8 text-sm text-deep-400/70">{pick("Last updated: July 16, 2026", "最后更新：2026年7月16日", locale)}</p>
 
-      <h2>{pick("1. What Are Cookies?", "1. 什么是 Cookie？", locale)}</h2>
+      <h2>{pick("1. Current setup", "1. 当前配置", locale)}</h2>
       <p>{pick(
-        "Cookies are small text files stored on your device when you visit a website. They help websites function properly and provide information to site owners.",
-        "Cookie 是你访问网站时存储在设备上的小型文本文件。它们帮助网站正常运行并向站点所有者提供信息。",
+        "The current production site uses a functional language-preference cookie and may use a Cloudflare security cookie. Plausible Analytics is used for aggregate traffic measurement and is not configured to set analytics cookies. The current deployment does not load Google Analytics or Microsoft Clarity.",
+        "当前生产站使用功能性语言偏好 Cookie，并可能使用 Cloudflare 安全 Cookie。Plausible Analytics 用于汇总流量统计，当前未配置分析 Cookie。当前部署未加载 Google Analytics 或 Microsoft Clarity。",
         locale,
       )}</p>
 
-      <h2>{pick("2. Cookies We Use", "2. 我们使用的 Cookie", locale)}</h2>
+      <h2>{pick("2. Cookies that may be set", "2. 可能设置的 Cookie", locale)}</h2>
+      <div className="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>{pick("Cookie", "Cookie", locale)}</th>
+              <th>{pick("Provider", "提供方", locale)}</th>
+              <th>{pick("Purpose", "用途", locale)}</th>
+              <th>{pick("Duration", "时长", locale)}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>locale</td>
+              <td>{pick("This site", "本站", locale)}</td>
+              <td>{pick("Keeps English or Chinese route preference consistent.", "保持英文或中文路由偏好一致。", locale)}</td>
+              <td>{pick("Up to 1 year; SameSite=Lax and Secure on HTTPS.", "最长 1 年；SameSite=Lax，并在 HTTPS 上设置 Secure。", locale)}</td>
+            </tr>
+            <tr>
+              <td>cf_clearance</td>
+              <td>Cloudflare</td>
+              <td>{pick("May be set after a security challenge to recognize a verified browser.", "可能在完成安全验证后设置，用于识别已验证的浏览器。", locale)}</td>
+              <td>{pick("Set by Cloudflare according to its security configuration.", "由 Cloudflare 根据安全配置确定。", locale)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>{pick("3. Plausible Analytics", "3. Plausible Analytics", locale)}</h2>
       <p>{pick(
-        "Subnautica 2 Guide uses minimal cookies, primarily for analytics. We do <strong>not</strong> use advertising cookies or social media tracking cookies.",
-        "深海迷航2 指南使用最少的 Cookie，主要用于分析。我们<strong>不</strong>使用广告 Cookie 或社交媒体追踪 Cookie。",
+        "Plausible Analytics measures aggregate usage without the Google Analytics or Microsoft Clarity cookies previously described on this page. It is not used for cross-site advertising tracking.",
+        "Plausible Analytics 在不使用本页旧版本所述 Google Analytics 或 Microsoft Clarity Cookie 的情况下统计汇总使用情况，且不用于跨站广告追踪。",
         locale,
       )}</p>
 
-      <table>
-        <thead>
-          <tr>
-            <th>{pick("Cookie", "Cookie", locale)}</th>
-            <th>{pick("Provider", "提供方", locale)}</th>
-            <th>{pick("Purpose", "用途", locale)}</th>
-            <th>{pick("Duration", "时长", locale)}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>_ga</td>
-            <td>Google Analytics</td>
-            <td>{pick("Distinguishes unique users", "区分唯一用户", locale)}</td>
-            <td>{pick("2 years", "2 年", locale)}</td>
-          </tr>
-          <tr>
-            <td>_ga_&lt;id&gt;</td>
-            <td>Google Analytics</td>
-            <td>{pick("Persists session state", "保持会话状态", locale)}</td>
-            <td>{pick("2 years", "2 年", locale)}</td>
-          </tr>
-          <tr>
-            <td>_clck</td>
-            <td>Microsoft Clarity</td>
-            <td>{pick("User ID and preferences", "用户 ID 和偏好", locale)}</td>
-            <td>{pick("1 year", "1 年", locale)}</td>
-          </tr>
-          <tr>
-            <td>_clsk</td>
-            <td>Microsoft Clarity</td>
-            <td>{pick("Session connection", "会话连接", locale)}</td>
-            <td>{pick("1 day", "1 天", locale)}</td>
-          </tr>
-          <tr>
-            <td>cf_clearance</td>
-            <td>Cloudflare</td>
-            <td>{pick("Security check marker", "安全检查标记", locale)}</td>
-            <td>{pick("1 hour", "1 小时", locale)}</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>{pick("4. Your controls", "4. 你的控制方式", locale)}</h2>
+      <p>{pick(
+        "You can clear or block cookies through your browser settings. Blocking the locale cookie may reset the language preference; blocking a Cloudflare security cookie may cause a security challenge to appear again.",
+        "你可以通过浏览器设置清除或阻止 Cookie。阻止 locale Cookie 可能重置语言偏好；阻止 Cloudflare 安全 Cookie 可能导致安全验证再次出现。",
+        locale,
+      )}</p>
+      <p>{pick(
+        "Because the current analytics configuration is cookieless and the listed cookies are functional or security-related, the site does not currently display a non-essential-cookie consent banner. If non-essential analytics or advertising cookies are enabled later, this policy and the consent mechanism must be updated before activation where required.",
+        "由于当前分析配置不使用 Cookie，所列 Cookie 均属于功能性或安全用途，本站目前不显示非必要 Cookie 同意横幅。如果未来启用非必要分析或广告 Cookie，将在适用地区启用前同步更新本政策和同意机制。",
+        locale,
+      )}</p>
 
-      <h2>{pick("3. How to Control Cookies", "3. 如何控制 Cookie", locale)}</h2>
-      <p>{pick("Most browsers allow you to control cookies through their settings. You can block all cookies, delete existing cookies, or set site-specific preferences.", "大多数浏览器允许你通过设置控制 Cookie。你可以阻止所有 Cookie、删除现有 Cookie 或设置特定站点的偏好。", locale)}</p>
-      <p>{pick("When you first visit our site, a cookie consent banner will appear where you can accept or reject non-essential cookies.", "首次访问本站时会显示 Cookie 同意横幅，你可以接受或拒绝非必要 Cookie。", locale)}</p>
-
-      <h2>{pick("4. Contact", "4. 联系方式", locale)}</h2>
-      <p>{pick("Email: <strong>privacy@subnautica2guide.wiki</strong>", "邮箱：<strong>privacy@subnautica2guide.wiki</strong>", locale)}</p>
+      <h2>{pick("5. Contact", "5. 联系方式", locale)}</h2>
+      <p>{pick("Cookie and privacy questions: privacy@subnautica2guide.wiki", "Cookie 与隐私问题：privacy@subnautica2guide.wiki", locale)}</p>
     </div>
   );
 }

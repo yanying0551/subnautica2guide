@@ -20,7 +20,7 @@ export default async function TermsPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10 page-content">
       <h1 className="text-3xl font-bold text-deep-100 mb-2">{pick("Terms of Service", "服务条款", locale)}</h1>
-      <p className="text-sm text-deep-400/50 mb-8">{pick("Last updated: June 29, 2026", "最后更新：2026年6月29日", locale)}</p>
+      <p className="text-sm text-deep-400/50 mb-8">{pick("Last updated: July 16, 2026", "最后更新：2026年7月16日", locale)}</p>
 
       <h2>{pick("1. Acceptance", "1. 接受条款", locale)}</h2>
       <p>{pick("By accessing Subnautica 2 Guide, you agree to these terms. If you do not agree, please do not use the site.", "访问深海迷航2 指南即表示你同意这些条款。如不同意，请不要使用本站。", locale)}</p>
@@ -34,8 +34,8 @@ export default async function TermsPage() {
 
       <h2>{pick("3. Content Accuracy", "3. 内容准确性", locale)}</h2>
       <p>{pick(
-        "This site is based on the Early Access version of Subnautica 2 (released May 14, 2026). Game mechanics, item locations, and creature behavior may change with updates. We strive to keep content updated but cannot guarantee completeness or accuracy at all times.",
-        "本站基于深海迷航2 抢先体验版（2026年5月14日发布）。游戏机制、物品位置和生物行为可能随更新而变化。我们努力保持内容更新，但无法保证始终完整或准确。",
+        "This site covers Subnautica 2 during Early Access. Game mechanics, item locations, and creature behavior may change during Early Access and with later updates. We strive to keep content updated but cannot guarantee completeness or accuracy at all times.",
+        "本站提供《深海迷航2》抢先体验期间的相关指南。游戏机制、物品位置和生物行为可能在抢先体验期间发生变化，也可能随后续更新调整。我们努力保持内容更新，但无法保证始终完整或准确。",
         locale,
       )}</p>
 

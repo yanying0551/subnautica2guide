@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const priorityMap: Record<string, number> = {
-    "/": 1.0,
+    "": 1.0,
     "/privacy": 0.3,
     "/terms": 0.3,
     "/cookie-policy": 0.3,
@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   };
 
   const frequencyMap: Record<string, string> = {
-    "/": "weekly",
+    "": "weekly",
     "/privacy": "yearly",
     "/terms": "yearly",
     "/cookie-policy": "yearly",
@@ -43,19 +43,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const result: MetadataRoute.Sitemap = [];
 
   for (const route of sharedRoutes) {
-    const url = route === "" ? baseUrl : `${baseUrl}${route}`;
+    const publicPath = route === "" ? "/" : `${route}/`;
     result.push({
-      url,
+      url: `${baseUrl}${publicPath}`,
       priority: priorityMap[route] ?? 0.5,
       changeFrequency: (frequencyMap[route] ?? "monthly") as "daily" | "weekly" | "monthly" | "yearly" | "always" | "hourly" | "never",
     });
   }
 
-  // Add ZH routes with /zh-cn prefix
+  // Emit the final canonical URLs expected by trailingSlash: true. Sitemap
+  // entries must not rely on redirects, especially for locale-prefixed paths.
   for (const route of sharedRoutes) {
-    const zhUrl = route === "" ? `${baseUrl}${zhPrefix}` : `${baseUrl}${zhPrefix}${route}`;
+    const publicPath = route === "" ? "/" : `${route}/`;
     result.push({
-      url: zhUrl,
+      url: `${baseUrl}${zhPrefix}${publicPath}`,
       priority: priorityMap[route] ?? 0.5,
       changeFrequency: (frequencyMap[route] ?? "monthly") as "daily" | "weekly" | "monthly" | "yearly" | "always" | "hourly" | "never",
     });

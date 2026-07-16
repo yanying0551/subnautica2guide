@@ -39,8 +39,8 @@
 - ✅ **TL;DR first** — every guide starts with a quick answer box
 - ✅ **FAQ with `<details><summary>`** — native HTML, no JS
 - ✅ **Schema.org WebSite** — structured data for SEO
-- ✅ **GA4 + Clarity** — analytics scripts in layout (replace IDs)
-- ✅ **hreflang-ready** — English default, Chinese subdomain ready
+- ✅ **Plausible Analytics** — privacy-friendly aggregate analytics
+- ✅ **hreflang-ready** — English default with Chinese routes under `/zh-cn/`
 - ✅ **Legal pages** — Privacy, Terms, Cookie, Disclaimer
 - ✅ **Custom 404 page**
 - ✅ **Responsive design** — mobile-first, flex/grid layout

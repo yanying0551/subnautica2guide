@@ -8,8 +8,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: pick("Privacy Policy", "隐私政策", locale),
     description: pick(
-      "Subnautica 2 Guide privacy policy. How we handle your data, cookies, and analytics.",
-      "深海迷航2 指南隐私政策。我们如何处理你的数据、Cookie 和分析。",
+      "How Subnautica 2 Guide handles analytics, security data, and your locale preference.",
+      "深海迷航2 指南如何处理分析、安全数据和语言偏好。",
       locale,
     ),
     alternates: getAlternates("/privacy", locale),
@@ -19,60 +19,86 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PrivacyPage() {
   const locale = await getLocale();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 page-content">
-      <h1 className="text-3xl font-bold text-deep-100 mb-2">{pick("Privacy Policy", "隐私政策", locale)}</h1>
-      <p className="text-sm text-deep-400/50 mb-8">{pick("Last updated: June 29, 2026", "最后更新：2026年6月29日", locale)}</p>
+    <div className="page-content mx-auto max-w-3xl px-4 py-10">
+      <h1 className="mb-2 text-3xl font-bold text-deep-100">{pick("Privacy Policy", "隐私政策", locale)}</h1>
+      <p className="mb-8 text-sm text-deep-400/70">{pick("Last updated: July 16, 2026", "最后更新：2026年7月16日", locale)}</p>
 
-      <h2>{pick("1. Introduction", "1. 简介", locale)}</h2>
+      <h2>{pick("1. Scope", "1. 适用范围", locale)}</h2>
       <p>{pick(
-        "Subnautica 2 Guide (accessible at <strong>subnautica2guide.wiki</strong>) is a fan-made, unofficial guide and wiki website for the game Subnautica 2 (developed by Unknown Worlds Entertainment).",
-        "深海迷航2 指南（网址：<strong>subnautica2guide.wiki</strong>）是一个粉丝制作的非官方攻略和维基网站，内容关于 Unknown Worlds Entertainment 开发的游戏《深海迷航2》。",
+        "This policy applies to subnautica2guide.wiki, an independent, fan-made Subnautica 2 guide. The public site has no accounts, comments, forums, payments, uploads, or membership features.",
+        "本政策适用于 subnautica2guide.wiki，这是一个独立的粉丝制作《深海迷航2》指南站。公开站点没有账户、评论、论坛、付款、上传或会员功能。",
         locale,
       )}</p>
-      <p>{pick("This Privacy Policy explains how we collect, use, and protect your information when you visit our site.", "本隐私政策说明我们在你访问本站时如何收集、使用和保护你的信息。", locale)}</p>
 
-      <h2>{pick("2. Information We Collect", "2. 我们收集的信息", locale)}</h2>
-      <h3>{pick("2.1 Automatically Collected Information", "2.1 自动收集的信息", locale)}</h3>
-      <p>{pick("When you visit Subnautica 2 Guide, certain information is automatically collected by third-party analytics services:", "当你访问深海迷航2 指南时，第三方分析服务会自动收集某些信息：", locale)}</p>
+      <h2>{pick("2. Current data processing", "2. 当前数据处理", locale)}</h2>
+      <h3>{pick("2.1 Plausible Analytics", "2.1 Plausible Analytics", locale)}</h3>
+      <p>{pick(
+        "We use Plausible Analytics to measure aggregate traffic such as page views, referral sources, approximate country, device type, and browser. The site does not use Google Analytics or Microsoft Clarity. GA4 and Microsoft Clarity are not loaded by the current layout.",
+        "我们使用 Plausible Analytics 统计页面浏览量、来源网站、大致国家或地区、设备类型和浏览器等汇总流量。本站目前未使用 Google Analytics 或 Microsoft Clarity；当前页面布局不会加载 GA4 或 Microsoft Clarity。",
+        locale,
+      )}</p>
+
+      <h3>{pick("2.2 Cloudflare", "2.2 Cloudflare", locale)}</h3>
+      <p>{pick(
+        "Cloudflare processes network information, including IP addresses and request metadata, to deliver the site, prevent abuse, and provide security. Cloudflare may set a security cookie when a visitor is presented with a challenge.",
+        "Cloudflare 会处理 IP 地址和请求元数据等网络信息，用于提供站点、阻止滥用并保障安全。当访客遇到安全验证时，Cloudflare 可能设置安全 Cookie。",
+        locale,
+      )}</p>
+
+      <h3>{pick("2.3 Language preference", "2.3 语言偏好", locale)}</h3>
+      <p>{pick(
+        "The site stores a locale preference cookie so English and Chinese routes render consistently. It is functional, not advertising or cross-site tracking.",
+        "本站保存 locale 语言偏好 Cookie，以确保英文和中文路由稳定显示。它属于功能性 Cookie，不用于广告或跨站追踪。",
+        locale,
+      )}</p>
+
+      <h2>{pick("3. Information you provide", "3. 你主动提供的信息", locale)}</h2>
+      <p>{pick(
+        "If you email us, the message and address are processed only to respond to your request and maintain necessary correspondence records.",
+        "如果你通过电子邮件联系我们，邮件内容和地址仅用于回复请求并保存必要的通信记录。",
+        locale,
+      )}</p>
+
+      <h2>{pick("4. Purposes and sharing", "4. 使用目的与共享", locale)}</h2>
       <ul>
-        <li>{pick("<strong>Google Analytics 4 (GA4)</strong>: Page views, session duration, approximate geographic location (city-level), browser type, device type", "<strong>Google Analytics 4 (GA4)</strong>：页面浏览量、会话时长、大致地理位置（城市级）、浏览器类型、设备类型", locale)}</li>
-        <li>{pick("<strong>Microsoft Clarity</strong>: Click patterns, scroll behavior, mouse movements, and session recordings (anonymized)", "<strong>Microsoft Clarity</strong>：点击模式、滚动行为、鼠标移动和会话录像（已匿名化）", locale)}</li>
-        <li>{pick("<strong>Cloudflare</strong>: IP address (temporary, for CDN routing and security)", "<strong>Cloudflare</strong>：IP 地址（临时，用于 CDN 路由和安全）", locale)}</li>
+        <li>{pick("Operate, secure, and troubleshoot the site.", "运行、保护和排查站点问题。", locale)}</li>
+        <li>{pick("Understand aggregate traffic and prioritize content improvements.", "了解汇总流量并确定内容改进优先级。", locale)}</li>
+        <li>{pick("Comply with legal obligations and respond to valid requests.", "履行法律义务并回应有效请求。", locale)}</li>
       </ul>
+      <p>{pick(
+        "We do not sell personal information. Data is shared only with service providers needed to operate the site, such as Cloudflare and Plausible, or when legally required.",
+        "我们不出售个人信息。数据仅会与运行本站所需的服务商（如 Cloudflare 和 Plausible）共享，或在法律要求时提供。",
+        locale,
+      )}</p>
 
-      <h3>{pick("2.2 Information You Voluntarily Provide", "2.2 你自愿提供的信息", locale)}</h3>
-      <p>{pick("We do <strong>not</strong> require registration, login, or account creation. We do not collect names, email addresses, or any personally identifiable information through forms or comments.", "我们<strong>不</strong>要求注册、登录或创建账户。我们不通过表单或评论收集姓名、邮箱或任何个人身份信息。", locale)}</p>
-
-      <h3>{pick("2.3 No Personal Account Data", "2.3 无个人账户数据", locale)}</h3>
-      <p>{pick("Subnautica 2 Guide has no user registration system, no comments section, no forums, and no membership features.", "深海迷航2 指南没有用户注册系统、评论区、论坛或会员功能。", locale)}</p>
-
-      <h2>{pick("3. How We Use Your Information", "3. 我们如何使用你的信息", locale)}</h2>
-      <ul>
-        <li>{pick("<strong>Improving content</strong>: Understanding which guides are most helpful", "<strong>改进内容</strong>：了解哪些指南最有帮助", locale)}</li>
-        <li>{pick("<strong>Site optimization</strong>: Identifying performance issues", "<strong>站点优化</strong>：识别性能问题", locale)}</li>
-        <li>{pick("<strong>Security</strong>: Protecting our site from malicious traffic via Cloudflare", "<strong>安全</strong>：通过 Cloudflare 保护站点免受恶意流量", locale)}</li>
-        <li>{pick("<strong>Analytics</strong>: Measuring traffic patterns to prioritize content creation", "<strong>分析</strong>：测量流量模式以优先内容创作", locale)}</li>
-      </ul>
-      <p>{pick("We do <strong>not</strong> sell, rent, or share your personal information with third parties for marketing purposes.", "我们<strong>不</strong>出售、出租或与第三方共享你的个人信息用于营销。", locale)}</p>
-
-      <h2>{pick("4. Cookies", "4. Cookie", locale)}</h2>
+      <h2>{pick("5. Cookies", "5. Cookie", locale)}</h2>
       <p>
-        {pick("Our site uses minimal cookies, primarily for analytics purposes. See our ", "本站使用最少的 Cookie，主要用于分析。详情请见我们的", locale)}
+        {pick("See the current ", "请查看当前的", locale)}
         <Link href={l("/cookie-policy", locale)}>{pick("Cookie Policy", "Cookie 政策", locale)}</Link>
-        {pick(" for details.", "。", locale)}
+        {pick(" for the functional and security cookies used by the site.", "，了解本站使用的功能性和安全 Cookie。", locale)}
       </p>
 
-      <h2>{pick("5. Children's Privacy (COPPA)", "5. 儿童隐私（COPPA）", locale)}</h2>
-      <p>{pick("We do not knowingly collect personal information from children under 13. Our site does not require registration or have interactive features that collect personal data.", "我们不会故意收集 13 岁以下儿童的个人信息。本站不要求注册，也没有收集个人数据的互动功能。", locale)}</p>
+      <h2>{pick("6. Your choices and rights", "6. 你的选择和权利", locale)}</h2>
+      <p>{pick(
+        "Depending on your location, you may have rights to request access, correction, deletion, restriction, or a copy of personal data associated with you. You can also clear or block cookies in your browser, although blocking functional or security cookies may affect site behavior.",
+        "根据你所在地区，你可能有权请求访问、更正、删除、限制处理或获取与你有关的个人数据副本。你也可以在浏览器中清除或阻止 Cookie，但阻止功能性或安全 Cookie 可能影响站点使用。",
+        locale,
+      )}</p>
 
-      <h2>{pick("6. Your Rights (GDPR / CCPA)", "6. 你的权利（GDPR / CCPA）", locale)}</h2>
-      <p>{pick("<strong>GDPR (EU visitors)</strong>: You have the right to access, rectify, erase, and export your data.", "<strong>GDPR（欧盟访客）</strong>：你有权访问、更正、删除和导出你的数据。", locale)}</p>
-      <p>{pick("<strong>CCPA (California residents)</strong>: You have the right to know what data is collected, request deletion, and opt out of data sales (we do not sell data).", "<strong>CCPA（加州居民）</strong>：你有权了解收集了哪些数据、要求删除、选择退出数据出售（我们不出售数据）。", locale)}</p>
-      <p>{pick("To exercise your rights, contact: <strong>privacy@subnautica2guide.wiki</strong>", "如需行使权利，请联系：<strong>privacy@subnautica2guide.wiki</strong>", locale)}</p>
+      <h2>{pick("7. Children", "7. 儿童隐私", locale)}</h2>
+      <p>{pick(
+        "The site is not designed to collect personal information from children and has no account or interactive submission features.",
+        "本站不以收集儿童个人信息为目的，也没有账户或互动提交功能。",
+        locale,
+      )}</p>
 
-      <h2>{pick("7. Contact", "7. 联系方式", locale)}</h2>
-      <p>{pick("Email: <strong>privacy@subnautica2guide.wiki</strong>", "邮箱：<strong>privacy@subnautica2guide.wiki</strong>", locale)}</p>
-      <p className="text-sm text-deep-400/50 mt-4">{pick("This is a fan-made site and is not affiliated with Unknown Worlds Entertainment or Krafton Inc.", "本站为粉丝制作，与 Unknown Worlds Entertainment 或 Krafton Inc. 无关。", locale)}</p>
+      <h2>{pick("8. Contact", "8. 联系方式", locale)}</h2>
+      <p>{pick("Privacy requests: privacy@subnautica2guide.wiki", "隐私请求：privacy@subnautica2guide.wiki", locale)}</p>
+      <p className="mt-4 text-sm text-deep-400/70">{pick(
+        "This fan site is not affiliated with Unknown Worlds Entertainment or Krafton Inc.",
+        "本站为粉丝制作，与 Unknown Worlds Entertainment 或 Krafton Inc. 无关。",
+        locale,
+      )}</p>
     </div>
   );
 }

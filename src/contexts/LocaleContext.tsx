@@ -48,7 +48,8 @@ export function LocalProvider({ children }: { children: ReactNode }) {
       // `x-locale` request header, and the server tree would stay in the old
       // language until a hard reload.
       if (typeof document !== "undefined") {
-        document.cookie = `locale=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
+        const secureSuffix = window.location.protocol === "https:" ? "; Secure" : "";
+        document.cookie = `locale=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax${secureSuffix}`;
       }
 
       if (newLocale === "zh") {

@@ -1,7 +1,7 @@
 # Content Audit Ledger
 
 **Policy:** [Editorial Content and Verification Policy](./editorial-content-policy.md)  
-**Last ledger review:** 2026-07-13  
+**Last ledger review:** 2026-07-16
 **Scope:** detailed gameplay routes are deliberately `noindex, follow` and excluded from the Sitemap while this audit is incomplete.
 
 ## Status definitions
@@ -44,3 +44,5 @@
 | --- | --- | --- | --- |
 | 2026-07-13 | detailed gameplay routes | Search quarantine introduced; routes removed from Sitemap. | Under source review; `X-Robots-Tag: noindex, follow` applied. |
 | 2026-07-13 | `/info/system-requirements` | Created a Steam evidence brief, rewrote page to source-backed PC requirements, restored Sitemap inclusion. | Verified; recheck after official requirements change. |
+| 2026-07-16 | all Under source review routes | Replaced unverified visible gameplay claims with a bilingual `Under source review / 来源核验中` page and added page-level robots metadata. | Visible quarantine plus metadata and Worker `noindex, follow`; routes remain excluded from Sitemap. |
+| 2026-07-16 | `/guides/multiplayer` | Added an exact verified-path exception after locale normalization and covered both locales in Worker integration tests. | English and Chinese routes are locally indexable; production verification remains pending deployment. |
