@@ -1,9 +1,9 @@
 # Subnautica 2 Guide — 正规做站流水线审计与整改复验
 
-日期：2026-07-16  
-项目根目录：`/root/.hermes/projects/subnautica2guide`  
-Git 根目录：`/root/.hermes/projects/subnautica2guide/site`  
-生产站：<https://subnautica2guide.wiki>  
+日期：2026-07-16
+项目根目录：`/root/.hermes/projects/subnautica2guide`
+Git 根目录：`/root/.hermes/projects/subnautica2guide/site`
+生产站：<https://subnautica2guide.wiki>
 生产基线提交：`9b4d7aa9c775fd1f051a96933dbed015cac0ffa0`
 
 ## 当前结论
@@ -12,17 +12,13 @@ Git 根目录：`/root/.hermes/projects/subnautica2guide/site`
 TECHNICAL_QA = PASS
 LOCAL_REMEDIATION = PASS_WITH_EXTERNAL_BLOCKERS
 QA_GO = false
-DEPLOYED = false
+DEPLOYED = true
+PRODUCTION_VERIFICATION = PASS
 ```
 
-本轮已在未提交工作区完成内容真实性隔离、中文 URL/重定向、verified 路由索引策略、法律文案、HTTPS Worker 跳转和低风险安全响应头整改，并通过完整技术闸门及本地 OpenNext Worker 复验。
+本轮已完成内容真实性隔离、中文 URL/重定向、verified 路由索引策略、法律文案、HTTPS Worker 跳转和低风险安全响应头整改，并通过完整技术闸门、本地 OpenNext Worker 复验及生产验证。整改提交 `05a4c10` 已由并行流程推送到 `origin/master`，生产域名已自动部署该行为。
 
-整体 `QA_GO` 仍为 `false`，原因不是当前测试或构建失败，而是：
-
-1. 历史暴露的 Stitch/Google API Key 仍缺少账号所有者的撤销/轮换证据；
-2. 整改尚未获 Owner Review，未部署到生产；
-3. 生产仍运行旧 Worker，因此线上问题只有部署后才能关闭；
-4. CSP 未在本轮强行启用。严格 nonce CSP 曾被评估，但为避免破坏 Next/OpenNext 内联样式和脚本，当前只落地可低风险验证的安全头；CSP 必须单独做浏览器兼容性验证后再启用。
+整体 `QA_GO` 仍为 `false`，唯一未关闭的发布治理阻塞是：历史暴露的 Stitch/Google API Key 尚未由账号所有者撤销或轮换。CSP 未在本轮强行启用；严格 nonce CSP 曾被评估，但为避免破坏 Next/OpenNext 内联样式和脚本，当前只落地可低风险验证的安全头。CSP 作为 P2 加固项单独做浏览器兼容性验证，不阻塞保留当前已验证发布。
 
 ## 已完成的本地整改
 
@@ -67,7 +63,7 @@ Worker 本地实现：
 - 限制型 `Permissions-Policy`；
 - 删除 `X-Powered-By`。
 
-本轮不启用未经完整浏览器兼容性验收的 CSP。Cloudflare 控制台的 Always Use HTTPS/HSTS 仍需部署权限与 Owner Review；Worker 层跳转是代码侧保障。
+本轮不启用未经完整浏览器兼容性验收的 CSP。Cloudflare 控制台的 Always Use HTTPS/HSTS 状态因本环境缺少 Cloudflare API token 未直接读取；生产 Worker 层 HTTPS 跳转和 HSTS 响应头已经验证生效。
 
 ### 6. 部署与源脚本
 
@@ -84,7 +80,7 @@ Worker 本地实现：
 - `npx tsc --noEmit`：通过；
 - `npm run build`：通过，31 个页面生成完成；
 - `npx opennextjs-cloudflare build`：通过，生成 `.open-next/worker.js`；
-- `git diff --check`：通过；
+- 最终工作区 `git diff --check`：通过；审查发现原提交中的 QA Markdown 有 4 行尾随空格，已在后续文档修正中清除；
 - 独立只读代码审查：初审发现相对 `Location` 解析、per-request nonce CSP 缓存兼容风险和生产 Worker 入口覆盖不足；均已修复。复审确认生产逻辑阻塞项关闭，并新增真实组合调用的 Worker 测试。
 - `npm audit --omit=dev --audit-level=high`：退出码 0，4 个 moderate、0 high、0 critical；未执行破坏性的 `npm audit fix --force`。
 
@@ -99,23 +95,25 @@ Worker 本地实现：
 | `/zh-cn/guides/multiplayer/` | `200`，`lang=zh-CN`，中文 canonical 正确 |
 | `/sitemap.xml` | `200`，公开 URL 均为最终尾斜杠形式 |
 
-## 仍未关闭的外部/生产项
+## 生产验证证据
+
+- `/`：`200`，HSTS、`nosniff`、`X-Frame-Options: DENY` 生效；
+- `/guides/multiplayer/` 与中文版本：`200`，无 `X-Robots-Tag: noindex`，页面 robots 为 `index, follow`；
+- `/guides/angel-comb/`：`200`，页面显示 Source Review 状态，响应含 `X-Robots-Tag: noindex, follow`；
+- `/zh-cn/privacy`、`/zh-cn/info/system-requirements`、`/zh-cn/guides/multiplayer`：均 `308` 到对应 `/zh-cn/.../` 最终路径；
+- sitemap 共 16 条，全部带尾斜杠并直接返回 `200`，未核验路由未收录；
+- 英文和中文 canonical 均指向绝对生产最终 URL；
+- Privacy、Cookie、Terms 生产文案与 Plausible、Cloudflare、`locale` Cookie 和当前无 GA4/Clarity 的行为一致。
+
+## 仍未关闭的外部项
 
 ### P0 — 历史 API Key 撤销/轮换证据
 
 当前 Git 源码未发现完整硬编码凭据，但历史压缩包中的 Stitch/Google API Key 必须由账号所有者撤销或轮换。只需确认“已轮换”，不得在聊天或仓库中发送新旧 Key。
 
-### P1 — 生产仍是旧版本
+### Owner Review — 已确认保留
 
-未经用户明确批准，本轮没有提交、推送或部署。因此生产仍可能表现为：
-
-- Verified Multiplayer 被旧 Worker 标记 `noindex`；
-- 中文无尾斜杠 URL 重定向丢失 `/zh-cn`；
-- 旧 Privacy/Cookie 文案；
-- 旧未核验断言；
-- HTTP 明文入口和安全头缺失。
-
-这些只能在 Owner Review、提交/推送和部署后进行生产关闭验证。
+整改提交 `05a4c10` 在独立只读审查期间被另一个并行流程提交并推送，生产随后自动部署。生产技术验证已通过，Owner 已于 2026-07-16 明确确认保留本次发布。
 
 ### P2 — 后续技术债
 
@@ -127,20 +125,17 @@ Worker 本地实现：
 
 | 阶段 | 当前状态 | 结论 |
 | --- | --- | --- |
-| Compliance | LOCAL_PASS / PROD_PENDING | 法律文案已本地对齐，待部署复验。 |
+| Compliance | PROD_PASS | 法律文案已在生产对齐。 |
 | Copy / Content | LOCAL_PASS / EVIDENCE_REVIEW_ONGOING | 未核验内容已隔离，逐页恢复仍需 evidence brief。 |
-| Frontend / i18n | LOCAL_PASS_WITH_P2 | 中文重定向和 canonical 已修；middleware 迁移待办。 |
-| SEO | LOCAL_PASS / PROD_PENDING | verified 与 under-review 边界测试通过，待生产验证。 |
-| Security | PARTIAL | HTTPS/HSTS/基础头已本地实现；CSP 和控制台配置待单独验收。 |
+| Frontend / i18n | PROD_PASS_WITH_P2 | 中文重定向和 canonical 已在生产修复；middleware 迁移待办。 |
+| SEO | PROD_PASS | verified 与 under-review 边界已通过生产验证。 |
+| Security | PROD_BASELINE_PASS / CSP_PENDING | HTTPS/HSTS/基础头已在生产生效；CSP 待单独验收。 |
 | QA | TECHNICAL_PASS | 10 个测试文件、69/69、Lint、TypeScript、Next、OpenNext、diff check 均通过。 |
-| Owner Review | WAITING | 未提交、未推送、未部署。 |
-| Launch | LIVE_WITH_REPAIR_PENDING | 线上仍是旧版本。 |
+| Owner Review | PASS | Owner 已确认保留生产提交 `05a4c10`。 |
+| Launch | LIVE_REPAIR_VERIFIED | 整改行为已上线并通过生产抽查。 |
 
 ## 下一步
 
 1. 账号所有者确认历史 Key 已撤销/轮换；
-2. Owner Review 当前工作区 diff；
-3. 获得明确批准后再提交、推送和部署；
-4. 生产逐项验证 HTTPS、基础安全头、Multiplayer 索引、中文重定向、canonical、sitemap、法律文案和未核验页面；
-5. 生产证据全部通过后，将整体 `QA_GO` 改为 `true`；
-6. 将 CSP 和 middleware→proxy 作为独立后续变更处理。
+2. Key 轮换确认后，将整体 `QA_GO` 改为 `true`；
+3. 将 CSP 和 middleware→proxy 作为独立后续变更处理。
