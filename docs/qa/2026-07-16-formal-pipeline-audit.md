@@ -109,7 +109,7 @@ Worker 本地实现：
 
 ### P0 — 历史 API Key 撤销/轮换证据
 
-当前 Git 源码未发现完整硬编码凭据，但历史压缩包中的 Stitch/Google API Key 必须由账号所有者撤销或轮换。只需确认“已轮换”，不得在聊天或仓库中发送新旧 Key。
+当前 Git 源码未发现完整硬编码凭据，但账号所有者已明确确认历史压缩包中的 Stitch/Google API Key 尚未轮换。该 P0 保持开启，直至账号所有者在 Google Cloud 完成撤销或轮换；只需确认“已轮换”，不得在聊天或仓库中发送新旧 Key。
 
 ### Owner Review — 已确认保留
 
@@ -136,6 +136,6 @@ Worker 本地实现：
 
 ## 下一步
 
-1. 账号所有者确认历史 Key 已撤销/轮换；
+1. 账号所有者在 Google Cloud 撤销/轮换历史 Key，并只确认“已轮换”；
 2. Key 轮换确认后，将整体 `QA_GO` 改为 `true`；
 3. 将 CSP 和 middleware→proxy 作为独立后续变更处理。
