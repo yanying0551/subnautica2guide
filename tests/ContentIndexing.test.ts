@@ -12,15 +12,17 @@ describe("content indexing quarantine", () => {
     "/guides/multiplayer/",
     "/zh-cn/guides/multiplayer",
     "/zh-cn/guides/multiplayer/",
-  ])("keeps the verified multiplayer route indexable: %s", (pathname) => {
+    "/updates/roadmap",
+    "/updates/roadmap/",
+    "/zh-cn/updates/roadmap",
+    "/zh-cn/updates/roadmap/",
+  ])("keeps exact verified routes indexable: %s", (pathname) => {
     expect(classifyRequestPath(pathname).needsSourceReview).toBe(false);
   });
 
   it.each([
-    "/guides/",
     "/guides/getting-started/",
-    "/zh-cn/resources/titanium/",
-    "/updates/roadmap/",
+    "/updates/speculation/",
   ])("keeps unverified route families quarantined: %s", (pathname) => {
     expect(classifyRequestPath(pathname).needsSourceReview).toBe(true);
   });

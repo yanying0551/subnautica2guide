@@ -6,14 +6,13 @@ import { getAlternates, SOURCE_REVIEW_ROBOTS } from "@/lib/seo-metadata";
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   return {
-    title: pick("Biomod Guide — Under Source Review", "生物模组指南——来源核验中", locale),
-    description: pick("This page is under source review. Use verified Subnautica 2 information while checks are completed.", "本页面正在进行来源核验，请在核验完成前使用已验证的深海迷航2信息。", locale),
+    title: pick("Subnautica 2 Biomods — Verification Status", "深海迷航2 生物模组——核验状态", locale),
+    description: pick("The current evidence status for Subnautica 2 biomod names, unlocks, costs, and effects.", "深海迷航2生物模组名称、解锁、成本和效果的当前证据状态。", locale),
     alternates: getAlternates("/biomods", locale),
     robots: SOURCE_REVIEW_ROBOTS,
   };
 }
 
 export default async function Page() {
-  const locale = await getLocale();
-  return <SourceReviewPage locale={locale} title={pick("Biomod Guide", "生物模组指南", locale)} />;
+  return <SourceReviewPage locale={await getLocale()} title={pick("Biomods", "生物模组", await getLocale())} />;
 }

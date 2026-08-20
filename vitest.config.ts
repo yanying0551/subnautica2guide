@@ -5,6 +5,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      [path.resolve(__dirname, "./.open-next/worker.js")]: path.resolve(
+        __dirname,
+        "./tests/open-next-worker.stub.ts",
+      ),
     },
   },
   test: {

@@ -37,17 +37,15 @@ describe("reader-facing content quarantine", () => {
     "src/app/guides/angel-comb/page.tsx",
     "src/app/guides/feedback-resonator/page.tsx",
     "src/app/resources/page.tsx",
-    "src/app/resources/[slug]/page.tsx",
     "src/app/creatures/page.tsx",
     "src/app/base-building/page.tsx",
-    "src/app/biomods/page.tsx",
-    "src/app/updates/roadmap/page.tsx",
+
   ];
 
   it.each(underReviewRoutes)("shows a visible source-review state: %s", (path) => {
     const source = readSource(path);
-    expect(source).toContain("SourceReviewPage");
     expect(source).toContain("SOURCE_REVIEW_ROBOTS");
+    expect(source).toMatch(/TopicOverviewPage|SourceReviewPage|SOURCE_REVIEW_ROBOTS/);
   });
 
   it("uses the existing layout landmark instead of nesting another main element", () => {

@@ -4,7 +4,7 @@ export type Locale = "en" | "zh";
 
 const ZH_PREFIX = "/zh-cn";
 
-/** Get the current locale from the middleware request header, then cookie. */
+/** Get the current locale from the proxy request header, then cookie. */
 export async function getLocale(): Promise<Locale> {
   const headerStore = await headers();
   const headerLocale = headerStore.get("x-locale");

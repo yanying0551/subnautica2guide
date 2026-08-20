@@ -42,9 +42,9 @@ export function LocalProvider({ children }: { children: ReactNode }) {
       if (newLocale === locale) return;
 
       // Keep the `locale` cookie in sync with the URL so that subsequent
-      // server-side requests (RSC payload, metadata, middleware) are rendered
+      // server-side requests (RSC payload, metadata, proxy) are rendered
       // in the same language as the client-side switcher. Without this, the
-      // middleware would keep reading the stale cookie, produce a mismatched
+      // proxy would keep reading the stale cookie, produce a mismatched
       // `x-locale` request header, and the server tree would stay in the old
       // language until a hard reload.
       if (typeof document !== "undefined") {

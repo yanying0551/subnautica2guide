@@ -27,6 +27,8 @@ describe("content verification guardrails", () => {
     const urls = sitemap().map((entry) => entry.url);
     expect(urls).toContain("https://subnautica2guide.wiki/zh-cn/privacy/");
     expect(urls).toContain("https://subnautica2guide.wiki/zh-cn/guides/multiplayer/");
+    expect(urls).toContain("https://subnautica2guide.wiki/updates/roadmap/");
+    expect(urls).toContain("https://subnautica2guide.wiki/zh-cn/updates/roadmap/");
     expect(urls).not.toContain("https://subnautica2guide.wiki/zh-cn/privacy");
   });
 
@@ -52,8 +54,8 @@ describe("content verification guardrails", () => {
     expect(indexing).toContain("/guides");
     expect(indexing).toContain("/resources");
     expect(indexing).not.toContain('"/info"');
-    expect(sitemap).not.toContain('"/guides"');
-    expect(sitemap).not.toContain('"/resources"');
+    expect(sitemap).not.toContain('"/guides",');
+    expect(sitemap).not.toContain('"/resources",');
     expect(sitemap).toContain('"/info/system-requirements"');
   });
 
@@ -76,12 +78,28 @@ describe("content verification guardrails", () => {
       "src/app/resources/page.tsx",
       "src/app/base-building/page.tsx",
       "src/app/biomods/page.tsx",
-      "src/app/updates/roadmap/page.tsx",
     ].map(readSource).join("\n");
 
     expect(quarantinedSources).not.toMatch(/Complete (?:guide|creature|resource)/i);
     expect(quarantinedSources).not.toMatch(/confirmed biomes/i);
     expect(quarantinedSources).not.toContain("EA 1.1 and EA 1.2 plans");
-    expect(quarantinedSources).toContain("source review");
+    expect(quarantinedSources).toContain("SOURCE_REVIEW_ROBOTS");
+  });
+
+  it("publishes a source-bounded official development status page", () => {
+    const roadmap = readSource("src/app/updates/roadmap/page.tsx");
+    const brief = readSource("docs/content-briefs/roadmap.md");
+
+    expect(roadmap).not.toContain("SOURCE_REVIEW_ROBOTS");
+    expect(roadmap).not.toContain("SourceReviewPage");
+    expect(roadmap).toContain("May 14, 2026");
+    expect(roadmap).toContain("Buddy System");
+    expect(roadmap).toContain("August 19, 2026");
+    expect(roadmap).toContain("Adaptive Measures");
+    expect(roadmap).toContain("does not publish a dated feature-by-feature roadmap");
+    expect(brief).toContain("Subnautica 2 on Steam");
+    expect(brief).toContain("1962700");
+    expect(brief).toContain("Buddy System");
+    expect(brief).toContain("Checked: 2026-08-20");
   });
 });

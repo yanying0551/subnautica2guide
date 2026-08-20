@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { openNextFetch } = vi.hoisted(() => ({
-  openNextFetch: vi.fn(),
+  openNextFetch: vi.fn<(request: Request, env: unknown, ctx: unknown) => Promise<Response>>(),
 }));
 
-vi.mock("../.open-next/worker.js", () => ({
-  default: { fetch: openNextFetch },
-}));
+vi.mock(
+  "../.open-next/worker.js",
+  () => ({ default: { fetch: openNextFetch } }),
+);
 
 import worker from "../cloudflare-worker.mjs";
 

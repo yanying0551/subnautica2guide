@@ -4,7 +4,7 @@
 项目根目录：`/root/.hermes/projects/subnautica2guide`
 Git 根目录：`/root/.hermes/projects/subnautica2guide/site`
 生产站：<https://subnautica2guide.wiki>
-生产基线提交：`9b4d7aa9c775fd1f051a96933dbed015cac0ffa0`
+生产整改提交：`05a4c10e8cd96ccd4147113f157399bbba33a5d4`（后续仅文档提交至 `69f15cf851fbddc1cb432665eb52d8065fb9e63a`）
 
 ## 当前结论
 

@@ -9,7 +9,10 @@ const REVIEW_PATH_PREFIXES = [
   "/updates",
 ];
 
-const VERIFIED_PATHS = new Set(["/guides/multiplayer"]);
+const VERIFIED_PATHS = new Set([
+  "/guides/multiplayer",
+  "/updates/roadmap",
+]);
 
 function isAmbiguousPath(pathname) {
   return (

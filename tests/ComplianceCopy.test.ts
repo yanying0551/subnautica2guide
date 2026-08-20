@@ -50,15 +50,22 @@ describe("production-accurate legal disclosures", () => {
     expect(cookies).not.toContain("会显示 Cookie 同意横幅");
   });
 
+  it("keeps locale routing in the Cloudflare entry worker", () => {
+    const worker = read("cloudflare-worker.mjs");
+
+    expect(worker).toContain('headers.set("x-locale", locale)');
+    expect(worker).toContain("buildInternalRequest");
+    expect(fs.existsSync(path.join(ROOT, "src/middleware.ts"))).toBe(false);
+    expect(fs.existsSync(path.join(ROOT, "src/proxy.ts"))).toBe(false);
+  });
+
   it("sets the locale preference as a Secure cookie on HTTPS requests", () => {
-    const middleware = read("src/middleware.ts");
+    const worker = read("cloudflare-worker.mjs");
     const localeContext = read("src/contexts/LocaleContext.tsx");
 
-    expect(middleware).toContain('secure: request.nextUrl.protocol === "https:"');
+    expect(worker).toContain("cookies.push(`locale=${locale}`)");
     expect(localeContext).toContain('window.location.protocol === "https:"');
     expect(localeContext).toContain('secureSuffix');
-    expect(middleware).toContain('sameSite: "lax"');
-    expect(middleware).toContain("maxAge:");
   });
 
   it("does not publish an unsupported Early Access release date in Terms", () => {

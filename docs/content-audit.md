@@ -15,7 +15,7 @@
 | Priority | Route | Localized route | Content type | Risk | Status | Known issue | Required evidence before re-indexing |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | P0 | `/info/system-requirements` | `/zh-cn/info/system-requirements` | PC requirements | Medium | Verified | Rewritten to the current official Steam-listed requirements; unsupported engine, Steam Deck, frame-rate, upscaler, and benchmark claims removed. | Recheck after a Steam listing or game update changes the requirements. |
-| P0 | `/updates/roadmap` | `/zh-cn/updates/roadmap` | roadmap/release information | High | Under source review | Dates and future plans are especially likely to change. | Official announcement or patch-note source for each date/feature; source date; revision log. |
+| P0 | `/updates/roadmap` | `/zh-cn/updates/roadmap` | roadmap/release information | High | Verified (source-bounded) | Dates and future plans are especially likely to change; page intentionally avoids a guaranteed feature-by-feature schedule. | Recheck after official update announcements; keep every listed claim mapped to the evidence brief. |
 | P0 | `/guides/multiplayer` | `/zh-cn/guides/multiplayer` | co-op/cross-play | Medium | Verified (limited scope) | Rewritten to only retain official Steam-listed single-player, Online Co-op, Cross-Platform Multiplayer, and 4-player co-op information. | Recheck after official feature/listing changes. |
 | P0 | `/guides/beginner-guide` | `/zh-cn/guides/beginner-guide` | progression/how-to | High | Under source review | Likely to contain version-sensitive mechanics and progression detail. | Evidence brief for every material step, with applicable build/version. |
 | P1 | `/resources` and `/resources/[slug]` | `/zh-cn/resources` and `/zh-cn/resources/[slug]` | resources, drops, locations, uses | High | Under source review | Exact resource locations, recipes, and uses are material gameplay claims. | Official/current-build evidence for each location, drop, and use; scope every affected entry. |
@@ -24,7 +24,9 @@
 | P1 | `/biomods` | `/zh-cn/biomods` | mechanics/upgrades | High | Under source review | Names, requirements, and effects require evidence. | Current official/game evidence per entry. |
 | P1 | `/guides/digestive-incompatibility` | `/zh-cn/guides/digestive-incompatibility` | status/mechanics | High | Under source review | Specific condition/cure claims need direct evidence. | Versioned, reproducible verification and source brief. |
 | P1 | `/guides/angel-comb` | `/zh-cn/guides/angel-comb` | item/location/use | High | Under source review | Exact item and location claims need direct evidence. | Current official/game evidence for identification, location, and use. |
-| P1 | `/guides/feedback-resonator` | `/zh-cn/guides/feedback-resonator` | item/unlock/mechanics | High | Under source review | Exact unlock/use claims need direct evidence. | Current official/game evidence and build scope. |
+| P1 | `/guides/subnautica-2-map-biomes` | `/zh-cn/guides/subnautica-2-map-biomes` | map/biome status | High | Under source review | Evidence-bound framework only; no coordinates, complete biome list, or fixed locations are asserted. | Current-build map evidence and reproducible biome records. |
+| P1 | `/guides/subnautica-2-blueprints-crafting-recipes` | `/zh-cn/guides/subnautica-2-blueprints-crafting-recipes` | blueprint/recipes tracker | High | Under source review | Evidence-bound framework only; no recipe, ingredient, station, or unlock is asserted. | Current-build evidence for each blueprint and recipe claim. |
+| P1 | `/guides/subnautica-2-walkthrough-progression` | `/zh-cn/guides/subnautica-2-walkthrough-progression` | progression framework | High | Under source review | Evidence-bound framework only; no complete story, ending, or objective order is asserted. | Current-build evidence for each step and version scope. |
 
 ## Re-index checklist (complete per route)
 
@@ -46,3 +48,4 @@
 | 2026-07-13 | `/info/system-requirements` | Created a Steam evidence brief, rewrote page to source-backed PC requirements, restored Sitemap inclusion. | Verified; recheck after official requirements change. |
 | 2026-07-16 | all Under source review routes | Replaced unverified visible gameplay claims with a bilingual `Under source review / 来源核验中` page and added page-level robots metadata. | Visible quarantine plus metadata and Worker `noindex, follow`; routes remain excluded from Sitemap. |
 | 2026-07-16 | `/guides/multiplayer` | Added an exact verified-path exception after locale normalization and covered both locales in Worker integration tests. | English and Chinese routes are locally indexable; production verification remains pending deployment. |
+| 2026-08-20 | `/updates/roadmap` | Refreshed page from official Buddy System, Experimental branch, and Adaptive Measures announcements; added direct source links and scope limits. | Verified (source-bounded); recheck after future official updates. |
