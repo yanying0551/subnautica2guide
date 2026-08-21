@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { l, pick, type Locale } from "@/lib/server-locale";
+import { l, pick, type Locale } from "@/lib/locale-utils";
 
 export function StatusBadge({ status, locale }: { status: "verified" | "review" | "limited"; locale: Locale }) {
   const label = status === "verified"
