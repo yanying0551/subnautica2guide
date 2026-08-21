@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SourceReviewPage } from "@/components/SourceReviewPage";
+import { GuideHub } from "@/components/GuideHub";
 import { getLocale, pick } from "@/lib/server-locale";
 import { getAlternates, SOURCE_REVIEW_ROBOTS } from "@/lib/seo-metadata";
 
@@ -15,5 +15,5 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function GuidesHub() {
   const locale = await getLocale();
-  return <SourceReviewPage locale={locale} title={pick("Subnautica 2 Guides", "深海迷航2 攻略", locale)} />;
+  return <GuideHub locale={locale} />;
 }
