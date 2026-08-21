@@ -16,10 +16,10 @@ export const localeLabels: Record<Locale, string> = {
 export const t: Record<string, Record<Locale, string>> = {
   // Brand
   "brand.title": { en: "Subnautica 2 Guide", zh: "深海迷航2 指南" },
-  "brand.subtitle": { en: "Fan-made Wiki & Guide", zh: "粉丝制作的中文维基指南" },
+  "brand.subtitle": { en: "Independent Database", zh: "独立资料库" },
   "brand.description": {
-    en: "The ultimate fan-made guide for Subnautica 2 — walkthroughs, creature database, resource locations, base building tips, and co-op guides.",
-    zh: "为深海迷航2（Subnautica 2）打造的完整中文指南——全流程攻略、生物图鉴、资源点位、基地建造技巧和联机教程。",
+    en: "An independent Subnautica 2 database for official references, guides, trackers, and clearly scoped updates.",
+    zh: "围绕深海迷航2（Subnautica 2）建立的独立资料库，整理官方参考、指南、追踪器与范围清晰的更新记录。",
   },
 
   // Navigation
@@ -31,6 +31,9 @@ export const t: Record<string, Record<Locale, string>> = {
   "nav.coop": { en: "Co-op", zh: "联机" },
   "nav.roadmap": { en: "Roadmap", zh: "路线图" },
   "nav.guides": { en: "Guides", zh: "教程" },
+  "nav.database": { en: "Database", zh: "资料库" },
+  "nav.trackers": { en: "Trackers", zh: "追踪器" },
+  "nav.tools": { en: "Tools", zh: "工具" },
 
   // Hero
   "hero.badge": { en: "Early Access • Updated June 2026", zh: "抢先体验 • 2026年6月更新" },

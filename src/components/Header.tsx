@@ -106,12 +106,9 @@ export function Header() {
 
   const navLinks = [
     { href: "/", label: tr("nav.home", locale) },
-    { href: "/creatures", label: tr("nav.creatures", locale) },
-    { href: "/resources", label: tr("nav.resources", locale) },
-    { href: "/base-building", label: tr("nav.base-building", locale) },
-    { href: "/biomods", label: tr("nav.biomods", locale) },
-    { href: "/guides/multiplayer", label: tr("nav.coop", locale) },
-    { href: "/updates/roadmap", label: tr("nav.roadmap", locale) },
+    { href: "/guides", label: tr("nav.database", locale) },
+    { href: "/guides/beginner-guide", label: tr("nav.guides", locale) },
+    { href: "/updates/roadmap", label: tr("nav.trackers", locale) },
   ];
 
   // Check if a nav link is active. We use the Next.js router pathname (from

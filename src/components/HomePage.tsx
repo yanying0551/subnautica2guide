@@ -12,6 +12,13 @@ const systems = [
   { href: "/updates/roadmap", icon: "⌁", en: "Roadmap", zh: "更新路线", descEn: "Official updates, clearly scoped and dated.", descZh: "范围清晰、带日期的官方更新。", verified: true, span: "lg:col-span-2" },
 ];
 
+const destinations = [
+  { href: "/guides", en: "Database", zh: "资料库", descEn: "Creatures, resources, systems, and world references.", descZh: "生物、资源、系统与世界资料。" },
+  { href: "/guides", en: "Guides", zh: "攻略", descEn: "Practical guides with clear evidence status.", descZh: "标注证据状态的实用指南。" },
+  { href: "/updates/roadmap", en: "Trackers", zh: "追踪器", descEn: "Official updates and changing game status.", descZh: "官方更新与游戏状态变化。" },
+  { href: "/guides", en: "Tools", zh: "工具", descEn: "A future workspace for checklists and progress.", descZh: "未来用于清单与进度记录的工作台。" },
+];
+
 const guides = [
   { href: "/info/system-requirements", image: "/images/stitch/cave.jpg", tagEn: "Verified reference", tagZh: "已核验参考", titleEn: "System Requirements", titleZh: "系统配置要求", bodyEn: "Compare the published PC requirements before you dive in.", bodyZh: "下潜前先查看已发布的 PC 配置要求。", verified: true },
   { href: "/guides/multiplayer", image: "/images/stitch/station.jpg", tagEn: "Limited scope", tagZh: "有限范围", titleEn: "Multiplayer & Co-op", titleZh: "多人模式与合作", bodyEn: "What is currently documented about playing together.", bodyZh: "当前资料中关于联机游玩的已知信息。", verified: true },
@@ -32,18 +39,27 @@ export default async function HomePage() {
         <div className="relative z-10 mx-auto flex min-h-[620px] max-w-6xl items-center px-4 py-20 md:px-6">
           <div className="max-w-3xl">
             <div className="mb-7 flex flex-wrap items-center gap-3">
-              <span className="data-label text-deep-300">PLANET 4546B / RESEARCH TERMINAL</span>
+              <span className="data-label text-deep-300">SUBNAUTICA 2 / INDEPENDENT DATABASE</span>
               <StatusBadge status="review" locale={locale} />
             </div>
             <h1 className="max-w-2xl text-4xl font-display font-bold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-7xl">{text("Subnautica 2 Guide & Wiki", "深海迷航 2 指南与 Wiki")}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300 md:text-xl">{text("A source-conscious field guide for exploring what is officially documented — and clearly marking what still needs verification.", "面向探索者的来源限定指南：只呈现已记录的官方信息，并明确标注仍待核验的内容。")}</p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300 md:text-xl">{text("A long-term Subnautica 2 database for official references, practical guides, and trackers that clearly separate verified information from topics still under review.", "一个长期维护的 Subnautica 2 独立资料库：整理官方参考、实用指南与追踪器，并明确区分已核验信息和仍在审查中的主题。")}</p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link href={l("/guides", locale)} className="inline-flex items-center gap-2 rounded-lg bg-deep-400 px-5 py-3 font-semibold text-deep-950 shadow-[0_0_28px_rgba(34,211,238,.2)] transition hover:bg-deep-300">{text("Enter the database", "进入资料库")} <span aria-hidden>→</span></Link>
+              <Link href={l("/guides", locale)} className="inline-flex items-center gap-2 rounded-lg bg-deep-400 px-5 py-3 font-semibold text-deep-950 shadow-[0_0_28px_rgba(34,211,238,.2)] transition hover:bg-deep-300">{text("Explore the database", "进入资料库")} <span aria-hidden>→</span></Link>
               <Link href={l("/info/system-requirements", locale)} className="inline-flex items-center gap-2 rounded-lg border border-deep-400/35 bg-deep-950/30 px-5 py-3 text-deep-200 transition hover:bg-deep-400/10">{text("Start with the verified guide", "从已核验指南开始")}</Link>
             </div>
             <div className="mt-12 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
-              {[ ["2", text("verified detail pages", "个已核验详情页")], ["EN / 中文", text("bilingual routes", "双语路由")], ["LIVE", text("editorial status", "编辑状态")], ["2026·08", text("last checked", "最近检查")]].map(([value, label]) => <div key={label} className="rounded-lg border border-deep-400/15 bg-[#0b1926]/75 px-3 py-4 backdrop-blur-sm"><strong className="block font-display text-lg text-deep-200">{value}</strong><span className="data-label mt-1 block leading-tight">{label}</span></div>)}
+              {[ ["DATABASE", text("structured entries", "结构化条目")], ["GUIDES", text("practical references", "实用参考")], ["TRACKERS", text("status-led topics", "状态追踪主题")], ["LIVE", text("editorial status", "编辑状态")]].map(([value, label]) => <div key={label} className="rounded-lg border border-deep-400/15 bg-[#0b1926]/75 px-3 py-4 backdrop-blur-sm"><strong className="block font-display text-lg text-deep-200">{value}</strong><span className="data-label mt-1 block leading-tight">{label}</span></div>)}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-deep-400/10 bg-[#0a1f30]/55 py-10">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="mb-5"><span className="data-label text-deep-300">SUBNAUTICA 2 / SITE MAP</span><h2 className="mt-2 text-2xl font-display font-bold text-white">{text("Explore the knowledge base", "探索知识库")}</h2></div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {destinations.map((item) => <Link key={item.en} href={l(item.href, locale)} className="group rounded-xl border border-deep-400/15 bg-[#0f2738] p-4 transition hover:-translate-y-0.5 hover:border-deep-400/35"><h3 className="font-display text-lg font-semibold text-white group-hover:text-deep-300">{isZh ? item.zh : item.en}</h3><p className="mt-2 text-sm leading-relaxed text-slate-400">{isZh ? item.descZh : item.descEn}</p><span className="mt-3 block text-xs font-semibold uppercase tracking-wider text-deep-300">{text("Open section →", "打开栏目 →")}</span></Link>)}
           </div>
         </div>
       </section>
@@ -55,7 +71,7 @@ export default async function HomePage() {
       </section>
 
       <section className="py-16 md:py-20"><div className="mx-auto max-w-6xl px-4 md:px-6">
-        <div className="mb-8 flex items-end justify-between gap-4"><div><span className="data-label text-deep-300">CORE SYSTEMS</span><h2 className="mt-2 text-3xl font-display font-bold text-white">{text("Database access", "资料库入口")}</h2></div><Link href={l("/guides", locale)} className="text-sm text-deep-300 hover:text-white">{text("Browse all →", "浏览全部 →")}</Link></div>
+        <div className="mb-8 flex items-end justify-between gap-4"><div><span className="data-label text-deep-300">DATABASE / GUIDE / TRACKER</span><h2 className="mt-2 text-3xl font-display font-bold text-white">{text("Build your field reference", "建立你的探索资料")}</h2></div><Link href={l("/guides", locale)} className="text-sm text-deep-300 hover:text-white">{text("Open database →", "打开资料库 →")}</Link></div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">{systems.map((item) => <Link key={item.href} href={l(item.href, locale)} className={`group relative overflow-hidden rounded-xl border border-deep-400/12 bg-[#0f2738] p-5 transition hover:-translate-y-0.5 hover:border-deep-400/35 hover:shadow-[0_0_24px_rgba(34,211,238,.08)] ${item.span}`}><span className="text-2xl text-deep-300" aria-hidden>{item.icon}</span><div className="mt-5 flex items-start justify-between gap-3"><h3 className="font-display text-lg font-semibold text-slate-100 group-hover:text-deep-300">{isZh ? item.zh : item.en}</h3><StatusBadge status={item.verified ? "verified" : "review"} locale={locale} /></div><p className="mt-2 text-sm leading-relaxed text-slate-400">{isZh ? item.descZh : item.descEn}</p></Link>)}</div>
       </div></section>
 

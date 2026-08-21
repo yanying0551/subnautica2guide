@@ -16,8 +16,8 @@ export interface GuideRegistryEntry {
 }
 
 const review = (en: string, zh: string) => ({
-  en: `Source review / ${en}`,
-  zh: `来源核验中 / ${zh}`,
+  en,
+  zh,
 });
 
 export const guideRegistry: GuideRegistryEntry[] = [

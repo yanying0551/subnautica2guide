@@ -34,13 +34,14 @@ const statusFilters: Array<{ value: GuideFilterStatus; en: string; zh: string }>
 ];
 
 export function GuideCard({ entry, locale }: { entry: GuideRegistryEntry; locale: Locale }) {
+  const description = pick(entry.description.en, entry.description.zh, locale).replace(/^(Source review\s*\/\s*|来源核验中\s*\/\s*)/i, "");
   return (
     <Link href={l(entry.path, locale)} className="group flex min-h-[190px] flex-col rounded-xl border border-deep-400/15 bg-[#0f2738] p-5 transition hover:-translate-y-0.5 hover:border-deep-400/40 hover:shadow-[0_0_22px_rgba(34,211,238,.1)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-300">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display text-xl font-bold text-white group-hover:text-deep-300">{pick(entry.title.en, entry.title.zh, locale)}</h3>
         <HubStatusBadge status={entry.status} locale={locale} />
       </div>
-      <p className="mt-3 text-sm leading-6 text-slate-300">{pick(entry.description.en, entry.description.zh, locale)}</p>
+      <p className="mt-3 text-sm leading-6 text-slate-300">{description}</p>
       <span className="data-label mt-auto pt-5 text-deep-300">{pick("Open reference →", "打开参考 →", locale)}</span>
     </Link>
   );

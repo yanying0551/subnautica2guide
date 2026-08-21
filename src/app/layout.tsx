@@ -21,14 +21,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const isZh = locale === "zh";
   const description = isZh
-    ? "深海迷航2独立粉丝指南。详细玩法内容正在进行来源审查，尚不应视为已经核验的参考资料。"
-    : "An independent fan guide for Subnautica 2. Detailed gameplay content is under source review and should not be treated as verified reference material.";
+    ? "围绕 Subnautica 2 建立的独立资料库，整理指南、Wiki 条目、状态追踪与官方更新；未核验内容会明确标注。"
+    : "An independent Subnautica 2 database for guides, wiki entries, trackers, and official updates; unverified topics remain under source review and are clearly marked.";
 
   return {
     title: {
       default: isZh
-        ? "深海迷航2 指南——攻略、生物、资源与基地建造"
-        : "Subnautica 2 Guide — Walkthroughs, Creatures, Resources & Base Building",
+        ? "Subnautica 2 资料库——指南、Wiki、追踪器与官方更新"
+        : "Subnautica 2 Database — Guides, Wiki, Trackers & Official Updates",
       template: isZh ? "%s — 深海迷航2 指南" : "%s — Subnautica 2 Guide",
     },
     description,
@@ -36,8 +36,8 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: isZh ? "深海迷航2 指南" : "Subnautica 2 Guide",
       description: isZh
-        ? "深海迷航2独立粉丝指南；详细玩法内容正在进行来源审查。"
-        : "An independent fan guide for Subnautica 2; detailed gameplay content is under source review.",
+        ? "围绕 Subnautica 2 建立的独立资料库，整理指南、Wiki 条目、状态追踪与官方更新；未核验内容会明确标注。"
+        : "An independent Subnautica 2 database for guides, wiki entries, trackers, and official updates; unverified topics remain under source review and are clearly marked.",
       siteName: isZh ? "深海迷航2 指南" : "Subnautica 2 Guide",
       type: "website",
     },
@@ -85,7 +85,7 @@ export default async function RootLayout({
               name: "Subnautica 2 Guide",
               url: "https://subnautica2guide.wiki",
               description:
-                "An independent fan guide for Subnautica 2; detailed gameplay content is under source review.",
+                "An independent Subnautica 2 database for guides, wiki entries, trackers, and official updates, with unverified topics clearly marked.",
             }),
           }}
         />
