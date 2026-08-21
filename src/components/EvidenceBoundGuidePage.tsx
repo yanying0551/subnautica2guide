@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { l, pick, type Locale } from "@/lib/server-locale";
+import { Breadcrumb, PageHero, SourceBlock } from "@/components/GuideUI";
 
 type GuideKind = "map" | "blueprints" | "progression";
 
@@ -72,15 +73,10 @@ const copy = {
 export function EvidenceBoundGuidePage({ kind, locale }: { kind: GuideKind; locale: Locale }) {
   const data = copy[kind][locale === "zh" ? "zh" : "en"];
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10 page-content">
-      <nav className="text-sm text-deep-300 mb-6">
-        <Link href={l("/", locale)}>{pick("Home", "首页", locale)}</Link>
-        <span className="mx-2">/</span>
-        <Link href={l("/guides", locale)}>{pick("Guides", "攻略", locale)}</Link>
-      </nav>
-      <p className="text-xs font-semibold uppercase tracking-wider text-amber-300 mb-3">{data.eyebrow}</p>
-      <h1>{data.title}</h1>
-      <p className="text-lg">{data.intro}</p>
+    <main>
+      <PageHero locale={locale} status="review" eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
+      <article className="max-w-4xl mx-auto px-4 py-10 page-content">
+      <Breadcrumb locale={locale} items={[{ href: "/", en: "Home", zh: "首页" }, { href: "/guides", en: "Guides", zh: "攻略" }, { en: "Source review", zh: "来源核验" }]} />
       <div className="tldr-box mb-8">
         <strong className="block text-deep-300 mb-2">{pick("What is confirmed", "已确认范围", locale)}</strong>
         <p>{data.confirmed}</p>
@@ -95,9 +91,8 @@ export function EvidenceBoundGuidePage({ kind, locale }: { kind: GuideKind; loca
         <li><Link href={l("/info/system-requirements", locale)}>{pick("PC system requirements", "PC 系统配置要求", locale)}</Link></li>
         <li><Link href={l("/updates/roadmap", locale)}>{pick("Official update status", "官方更新状态", locale)}</Link></li>
       </ul>
-      <h2>{pick("Sources and scope", "来源与范围", locale)}</h2>
-      <p>{data.sourceLabel}: <a href={steamUrl} target="_blank" rel="noreferrer">{pick("Subnautica 2 on Steam", "Steam：Subnautica 2", locale)}</a>; <a href={unknownWorldsUrl} target="_blank" rel="noreferrer">{pick("Unknown Worlds update", "Unknown Worlds 更新公告", locale)}</a>.</p>
-      <p className="text-sm text-deep-400/70">{pick("Last checked: August 20, 2026. Applicable scope: Early Access; details may change with updates.", "最后核验：2026年8月20日。适用范围：抢先体验；细节可能随更新变化。", locale)}</p>
-    </article>
+      <SourceBlock locale={locale} checked="August 20, 2026" scope={pick("Early Access; details may change", "抢先体验；细节可能变化", locale)} sources={[{ href: steamUrl, en: "Subnautica 2 on Steam", zh: "Steam：Subnautica 2" }, { href: unknownWorldsUrl, en: data.sourceLabel, zh: data.sourceLabel }]} />
+      </article>
+    </main>
   );
 }
