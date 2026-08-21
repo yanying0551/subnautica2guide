@@ -55,7 +55,7 @@ describe("Header mobile navigation", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
     expect(document.body.style.overflow).toBe("hidden");
 
-    Object.defineProperty(window, "innerWidth", { configurable: true, value: 768 });
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: 1024 });
     fireEvent(window, new Event("resize"));
 
     await waitFor(() => {

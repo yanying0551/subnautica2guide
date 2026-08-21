@@ -78,7 +78,7 @@ export function Header() {
   // desktop breakpoint. This also releases the focus trap and scroll lock.
   useEffect(() => {
     const closeOnDesktop = () => {
-      if (window.innerWidth >= 768) setDrawerOpen(false);
+      if (window.innerWidth >= 1024) setDrawerOpen(false);
     };
 
     window.addEventListener("resize", closeOnDesktop);
@@ -134,7 +134,7 @@ export function Header() {
         <button
           ref={openButtonRef}
           onClick={openDrawer}
-          className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-deep-300 hover:text-white hover:bg-deep-400/10 transition-colors"
+          className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg text-deep-300 hover:text-white hover:bg-deep-400/10 transition-colors"
           aria-label="Open navigation menu"
           aria-expanded={drawerOpen}
           aria-controls={panelId}
@@ -193,7 +193,7 @@ export function Header() {
       {/* Mobile sidebar overlay.
           Decorative backdrop — hidden from AT by aria-hidden. */}
       <div
-        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
           drawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={closeDrawer}
@@ -211,7 +211,7 @@ export function Header() {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`fixed top-0 left-0 z-50 h-full w-72 max-w-[80vw] bg-[#0b1926] border-r border-deep-400/15 shadow-2xl transition-transform duration-300 ease-out md:hidden ${
+        className={`fixed top-0 left-0 z-50 h-full w-72 max-w-[80vw] bg-[#0b1926] border-r border-deep-400/15 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
           drawerOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
         }`}
       >
