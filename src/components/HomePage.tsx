@@ -1,98 +1,32 @@
 import Link from "next/link";
 import { getLocale, l, pick } from "@/lib/server-locale";
+import { StatusBadge } from "@/components/GuideUI";
 
-const sections = [
-  { href: "/guides", en: "Guides", zh: "攻略" },
-  { href: "/resources", en: "Resources", zh: "资源" },
-  { href: "/creatures", en: "Creatures", zh: "生物" },
-  { href: "/base-building", en: "Base Building", zh: "基地建造" },
+const topics = [
+  { href: "/guides/multiplayer", en: "Co-op & Multiplayer", zh: "合作与多人模式", verified: true },
+  { href: "/info/system-requirements", en: "System Requirements", zh: "系统配置要求", verified: true },
+  { href: "/updates/roadmap", en: "Official Updates", zh: "官方更新", verified: true },
+  { href: "/creatures", en: "Creatures", zh: "生物", verified: false },
+  { href: "/resources", en: "Resources", zh: "资源", verified: false },
+  { href: "/base-building", en: "Base Building", zh: "基地建造", verified: false },
 ];
 
 export default async function HomePage() {
   const locale = await getLocale();
-
-  return (
-    <div>
-      <section className="relative overflow-hidden border-b border-deep-400/10">
-        <div className="absolute inset-0 bg-gradient-to-b from-deep-900/20 via-deep-950 to-surface pointer-events-none" />
-        <div className="max-w-6xl mx-auto px-4 py-20 md:py-28 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-deep-400/8 border border-deep-400/20 rounded-full px-3.5 py-1 text-xs text-deep-300 font-medium mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-deep-400 animate-pulse" />
-              {pick("Independent fan guide • source review in progress", "独立粉丝指南 • 正在进行来源核验", locale)}
-            </div>
-
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 leading-tight text-white">
-              {pick("Subnautica 2 Guide", "深海迷航2 指南", locale)}
-            </h1>
-            <p className="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed max-w-2xl">
-              {pick(
-                "An independent fan guide for Subnautica 2. Detailed gameplay claims are currently under source review and may be incomplete or unavailable.",
-                "面向玩家的深海迷航2独立粉丝指南。详细玩法主张正在进行来源核验，内容可能尚不完整或暂不可用。",
-                locale,
-              )}
-            </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href={l("/guides", locale)}
-                className="inline-flex items-center gap-2 bg-deep-400/90 text-deep-950 font-medium px-5 py-2.5 rounded-lg hover:bg-deep-300 transition-all shadow-lg shadow-deep-400/20"
-              >
-                {pick("Browse guide topics", "浏览攻略主题", locale)}
-              </Link>
-              <Link
-                href={l("/disclaimer", locale)}
-                className="inline-flex items-center gap-2 border border-deep-400/25 text-deep-300 px-5 py-2.5 rounded-lg hover:bg-deep-400/10 transition-all"
-              >
-                {pick("Read our verification policy", "查看核验说明", locale)}
-              </Link>
-            </div>
-          </div>
+  return <main>
+    <section className="relative overflow-hidden border-b border-deep-400/10">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(34,211,238,0.12),transparent_28%),linear-gradient(160deg,#0f2738,#0b1926_60%,#051520)]" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto px-4 py-20 md:py-28 relative z-10">
+        <div className="max-w-3xl">
+          <div className="flex flex-wrap items-center gap-3 mb-6"><span className="data-label text-deep-300">PLANET 4546B / SIGNAL ONLINE</span><StatusBadge status="review" locale={locale} /></div>
+          <h1 className="text-4xl md:text-6xl font-display font-bold mb-5 leading-tight text-white">{pick("Subnautica 2 Guide & Wiki", "深海迷航2 指南与 Wiki", locale)}</h1>
+          <p className="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed max-w-2xl">{pick("An independent, source-conscious guide for Subnautica 2. Start with official updates, PC requirements, and the currently documented multiplayer scope.", "面向玩家的深海迷航2独立指南。先从官方更新、PC 配置要求和当前已记录的多人模式范围开始。", locale)}</p>
+          <div className="flex flex-wrap gap-3"><Link href={l("/guides/multiplayer", locale)} className="inline-flex items-center gap-2 bg-deep-400/90 text-deep-950 font-semibold px-5 py-3 rounded-lg hover:bg-deep-300 transition-all">{pick("Start exploring", "开始探索", locale)} <span aria-hidden="true">→</span></Link><Link href={l("/updates/roadmap", locale)} className="inline-flex items-center gap-2 border border-deep-400/25 text-deep-300 px-5 py-3 rounded-lg hover:bg-deep-400/10 transition-all">{pick("View official updates", "查看官方更新", locale)}</Link></div>
         </div>
-      </section>
-
-      <section className="py-14 border-b border-deep-400/8">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-xl font-display font-bold text-white mb-3">
-            {pick("Browse by topic", "按主题浏览", locale)}
-          </h2>
-          <p className="text-slate-400 mb-8">
-            {pick(
-              "Detailed pages are currently under review and are not represented here as verified reference material.",
-              "详细页面目前正在审查中，本站不会将其表述为已经核验的参考资料。",
-              locale,
-            )}
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {sections.map((section) => (
-              <Link
-                key={section.href}
-                href={l(section.href, locale)}
-                className="rounded-xl p-5 glow-border hover:bg-surface-hover transition-all text-center text-sm font-medium text-slate-300"
-              >
-                {locale === "zh" ? section.zh : section.en}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-10">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="rounded-xl p-6 md:p-8 border border-deep-400/8 bg-surface-card/50">
-            <h2 className="text-md font-display font-bold text-white mb-2">
-              {pick("Editorial status", "编辑状态", locale)}
-            </h2>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              {pick(
-                "This is an independent fan project and is not affiliated with Unknown Worlds Entertainment or Krafton. Game features, availability, and mechanics can change. Detailed gameplay pages are under source review and should not be treated as verified reference material.",
-                "本站是独立粉丝项目，与 Unknown Worlds Entertainment 或 Krafton 无关。游戏功能、可用性与机制可能变化。详细玩法页面正在进行来源审查，不应被视为已经核验的参考资料。",
-                locale,
-              )}
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+      </div>
+    </section>
+    <section className="border-b border-deep-400/8 bg-surface-secondary/40"><div className="max-w-6xl mx-auto px-4 py-5 grid grid-cols-2 md:grid-cols-4 gap-4"><div><span className="data-label">STATUS</span><p className="mt-1 text-sm text-emerald-300">{pick("Early Access", "抢先体验", locale)}</p></div><div><span className="data-label">LANGUAGES</span><p className="mt-1 text-sm text-deep-200">EN / 中文</p></div><div><span className="data-label">EDITORIAL</span><p className="mt-1 text-sm text-deep-200">{pick("Evidence bounded", "证据限定", locale)}</p></div><div><span className="data-label">UPDATED</span><p className="mt-1 text-sm text-deep-200">2026-08-20</p></div></div></section>
+    <section className="py-14"><div className="max-w-6xl mx-auto px-4"><div className="flex items-end justify-between gap-4 mb-7"><div><span className="data-label text-deep-300">CORE SYSTEMS</span><h2 className="mt-2 text-2xl font-display font-bold text-white">{pick("Browse by topic", "按主题浏览", locale)}</h2></div><Link href={l("/guides", locale)} className="text-sm text-deep-300 hover:text-white">{pick("All guides →", "全部攻略 →", locale)}</Link></div><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{topics.map((topic) => <Link key={topic.href} href={l(topic.href, locale)} className="group rounded-lg p-5 border border-deep-400/12 bg-surface-card hover:bg-surface-hover hover:border-deep-400/30 transition-all"><div className="flex items-start justify-between gap-3"><h3 className="font-semibold text-slate-200 group-hover:text-deep-300">{locale === "zh" ? topic.zh : topic.en}</h3>{topic.verified ? <StatusBadge status="verified" locale={locale} /> : <StatusBadge status="review" locale={locale} />}</div><p className="mt-3 text-sm text-slate-400">{topic.verified ? pick("Officially sourced reference", "有官方来源的参考页", locale) : pick("Detailed claims under review", "详细内容正在核验", locale)}</p></Link>)}</div></div></section>
+    <section className="pb-14"><div className="max-w-6xl mx-auto px-4"><div className="rounded-lg border border-deep-400/12 bg-surface-card/60 p-6 md:p-8"><div className="flex items-center gap-3 mb-3"><span className="data-label text-deep-300">EDITORIAL PROTOCOL</span><StatusBadge status="review" locale={locale} /></div><p className="text-sm text-slate-400 leading-relaxed">{pick("Detailed gameplay pages remain under source review and are not represented as verified reference material. This independent fan project is not affiliated with Unknown Worlds Entertainment or Krafton.", "详细玩法页面仍在来源审查中，不会被表述为已经核验的参考资料。本独立粉丝项目与 Unknown Worlds Entertainment 或 Krafton 无关。", locale)}</p></div></div></section>
+  </main>;
 }

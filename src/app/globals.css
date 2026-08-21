@@ -37,6 +37,76 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Stitch deep-sea guide primitives */
+.data-label {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.12);
+  background: linear-gradient(135deg, rgba(15, 39, 56, 0.9), rgba(11, 25, 38, 0.45) 55%, rgba(5, 21, 32, 0.8));
+  padding: 2.5rem 2rem;
+}
+
+.page-hero__signal {
+  position: absolute;
+  top: -8rem;
+  right: 8%;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.14), transparent 68%);
+  pointer-events: none;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 0.35rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.status-verified { background: rgba(16, 185, 129, 0.14); color: #a7f3d0; border: 1px solid rgba(52, 211, 153, 0.25); }
+.status-limited { background: rgba(34, 211, 238, 0.1); color: #a5f3fc; border: 1px solid rgba(34, 211, 238, 0.25); }
+.status-review { background: rgba(245, 158, 11, 0.12); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.25); }
+
+.source-block {
+  margin-top: 2.5rem;
+  border: 1px solid rgba(34, 211, 238, 0.14);
+  border-radius: 8px;
+  background: rgba(15, 39, 56, 0.72);
+  padding: 1rem 1.25rem;
+}
+.source-block h2 { color: var(--color-text-primary); }
+
+.review-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 8px 8px 0;
+  background: rgba(245, 158, 11, 0.06);
+  padding: 1rem;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .page-hero { padding: 4rem max(2rem, calc((100% - 1152px) / 2)); }
+}
+
 /* Glow effect for border accents */
 .glow-border {
   box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.12), 0 0 20px rgba(34, 211, 238, 0.04);

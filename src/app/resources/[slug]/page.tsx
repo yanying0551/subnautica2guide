@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ResourceDetailView } from "@/components/ResourceDetailView";
 import { resources } from "@/lib/constants";
-import { getAlternates } from "@/lib/seo-metadata";
+import { getAlternates, SOURCE_REVIEW_ROBOTS } from "@/lib/seo-metadata";
 import { getLocale, pick } from "@/lib/server-locale";
 import { getResourceDetail } from "@/lib/i18n";
 
@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: data?.title ?? pick(`${resource.name} — Subnautica 2 Resource`, `${resource.name} — 深海迷航2 资源`, locale),
     description: data?.meta,
     alternates: getAlternates(`/resources/${slug}`, locale),
+    robots: SOURCE_REVIEW_ROBOTS,
   };
 }
 

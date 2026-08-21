@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { getLocale, l, pick } from "@/lib/server-locale";
+import { getLocale, pick } from "@/lib/server-locale";
 import { getAlternates } from "@/lib/seo-metadata";
+import { Breadcrumb, PageHero, SourceBlock } from "@/components/GuideUI";
 
 const sourceUrl = "https://store.steampowered.com/app/1962700/Subnautica_2/";
 
@@ -52,15 +52,16 @@ function RequirementsTable({ recommended, locale }: { recommended: boolean; loca
 export default async function SystemRequirements() {
   const locale = await getLocale();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 page-content">
-      <nav className="text-sm text-deep-300 mb-6"><Link href={l("/", locale)}>{pick("Home", "首页", locale)}</Link><span className="mx-2 text-deep-400">/</span><span className="text-deep-400 font-medium">{pick("System Requirements", "系统配置要求", locale)}</span></nav>
-      <h1 className="text-3xl font-bold text-deep-100 mb-4">{pick("Subnautica 2 PC System Requirements", "深海迷航2 PC 系统配置要求", locale)}</h1>
+    <main>
+      <PageHero locale={locale} status="verified" eyebrow={pick("Official PC requirements", "官方 PC 配置要求", locale)} title={pick("Subnautica 2 PC System Requirements", "深海迷航2 PC 系统配置要求", locale)} intro={pick("The minimum and recommended configurations listed by the official Steam store page.", "官方 Steam 商店页面列出的最低和推荐配置。", locale)} />
+      <div className="max-w-4xl mx-auto px-4 py-10 page-content">
+      <Breadcrumb locale={locale} items={[{ href: "/", en: "Home", zh: "首页" }, { en: "System Requirements", zh: "系统配置要求" }]} />
       <div className="tldr-box mb-8"><strong className="block text-deep-300 mb-1">{pick("Verification status", "核验状态", locale)}</strong><p>{pick("Verified against the official Steam store listing on July 13, 2026. These requirements can change as the game is updated.", "已于2026年7月13日依据官方 Steam 商店页面核验。随着游戏更新，这些配置可能变化。", locale)}</p></div>
       <h2>{pick("Minimum system requirements", "最低系统配置", locale)}</h2><RequirementsTable recommended={false} locale={locale} />
       <h2>{pick("Recommended system requirements", "推荐系统配置", locale)}</h2><RequirementsTable recommended locale={locale} />
       <p>{pick("Both sets of requirements list a 64-bit processor and operating system. The Steam listing also lists a broadband Internet connection.", "两套配置均要求64位处理器和操作系统。Steam 页面还列出了宽带互联网连接。", locale)}</p>
-      <h2>{pick("Source and scope", "来源与适用范围", locale)}</h2>
-      <p>{pick("Source: ", "来源：", locale)}<a href={sourceUrl} target="_blank" rel="noreferrer">{pick("Subnautica 2 on Steam — System Requirements", "Steam：Subnautica 2 系统配置要求", locale)}</a>{pick(". This page reports the listing as checked on July 13, 2026; it does not make independent performance or compatibility claims.", "。本页仅记录截至2026年7月13日所核验的商店页面信息，不作独立性能或兼容性主张。", locale)}</p>
-    </div>
+      <SourceBlock locale={locale} checked="July 13, 2026" scope={pick("Steam listing; no independent performance claims", "Steam 页面；不作独立性能主张", locale)} sources={[{ href: sourceUrl, en: "Subnautica 2 on Steam — System Requirements", zh: "Steam：Subnautica 2 系统配置要求" }]} />
+      </div>
+    </main>
   );
 }

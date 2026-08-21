@@ -16,7 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/disclaimer",
     "/editorial-policy",
     "/info/system-requirements",
-    "/guides/beginner-guide",
     "/guides/multiplayer",
     "/updates/roadmap",
   ];
@@ -29,7 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/disclaimer": 0.3,
     "/editorial-policy": 0.4,
     "/info/system-requirements": 0.6,
-    "/guides/beginner-guide": 0.6,
     "/guides/multiplayer": 0.6,
   };
 
@@ -40,7 +38,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/cookie-policy": "yearly",
     "/disclaimer": "yearly",
     "/info/system-requirements": "monthly",
-    "/guides/beginner-guide": "monthly",
     "/guides/multiplayer": "monthly",
   } as Record<string, string>;
 
