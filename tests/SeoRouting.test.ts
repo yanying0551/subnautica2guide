@@ -31,6 +31,16 @@ describe("public SEO routing", () => {
     }
   });
 
+  it("submits core indexable guide URLs while excluding source-review pages", () => {
+    const urls = sitemap().map((entry) => entry.url);
+
+    expect(urls).toContain("https://subnautica2guide.wiki/guides/beginner-guide/");
+    expect(urls).toContain("https://subnautica2guide.wiki/zh-cn/guides/beginner-guide/");
+    expect(urls).toContain("https://subnautica2guide.wiki/info/system-requirements/");
+    expect(urls).not.toContain("https://subnautica2guide.wiki/guides/angel-comb/");
+    expect(urls).not.toContain("https://subnautica2guide.wiki/zh-cn/guides/angel-comb/");
+  });
+
   it.each([
     ["/privacy/", "/zh-cn/privacy/"],
     ["/info/system-requirements/?ref=sitemap", "/zh-cn/info/system-requirements/?ref=sitemap"],

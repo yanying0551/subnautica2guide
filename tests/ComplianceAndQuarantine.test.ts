@@ -32,7 +32,6 @@ describe("production-truthful compliance disclosures", () => {
 describe("reader-facing content quarantine", () => {
   const underReviewRoutes = [
     "src/app/guides/page.tsx",
-    "src/app/guides/beginner-guide/page.tsx",
     "src/app/guides/digestive-incompatibility/page.tsx",
     "src/app/guides/angel-comb/page.tsx",
     "src/app/guides/feedback-resonator/page.tsx",

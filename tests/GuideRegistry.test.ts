@@ -30,5 +30,7 @@ describe("bilingual guide registry", () => {
       expect(urls).not.toContain(`https://subnautica2guide.wiki${entry.path}/`);
       expect(urls).not.toContain(`https://subnautica2guide.wiki/zh-cn${entry.path}/`);
     }
+    expect(urls).toContain("https://subnautica2guide.wiki/guides/beginner-guide/");
+    expect(urls).toContain("https://subnautica2guide.wiki/zh-cn/guides/beginner-guide/");
   });
 });

@@ -16,6 +16,10 @@ describe("content indexing quarantine", () => {
     "/updates/roadmap/",
     "/zh-cn/updates/roadmap",
     "/zh-cn/updates/roadmap/",
+    "/guides/beginner-guide",
+    "/guides/beginner-guide/",
+    "/zh-cn/guides/beginner-guide",
+    "/zh-cn/guides/beginner-guide/",
   ])("keeps exact verified routes indexable: %s", (pathname) => {
     expect(classifyRequestPath(pathname).needsSourceReview).toBe(false);
   });

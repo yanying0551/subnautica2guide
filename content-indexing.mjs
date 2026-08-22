@@ -10,6 +10,7 @@ const REVIEW_PATH_PREFIXES = [
 ];
 
 const VERIFIED_PATHS = new Set([
+  "/guides/beginner-guide",
   "/guides/multiplayer",
   "/updates/roadmap",
 ]);

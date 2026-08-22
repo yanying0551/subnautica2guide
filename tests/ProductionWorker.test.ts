@@ -58,14 +58,14 @@ describe("production worker entry composition", () => {
     expect(forwardedCtx).toBe(ctx);
   });
 
-  it("keeps verified multiplayer indexable and quarantines unverified content", async () => {
+  it("keeps verified routes indexable and quarantines unverified content", async () => {
     const verified = await worker.fetch(
       new Request("https://subnautica2guide.wiki/guides/multiplayer/"),
       env,
       ctx,
     );
     const unverified = await worker.fetch(
-      new Request("https://subnautica2guide.wiki/guides/beginner-guide/"),
+      new Request("https://subnautica2guide.wiki/guides/angel-comb/"),
       env,
       ctx,
     );

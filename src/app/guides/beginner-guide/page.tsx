@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocale, l, pick } from "@/lib/server-locale";
-import { getAlternates, SOURCE_REVIEW_ROBOTS } from "@/lib/seo-metadata";
+import { getAlternates } from "@/lib/seo-metadata";
 
 const steamUrl = "https://store.steampowered.com/app/1962700/Subnautica_2/";
 
@@ -19,7 +19,6 @@ export async function generateMetadata(): Promise<Metadata> {
       locale,
     ),
     alternates: getAlternates("/guides/beginner-guide", locale),
-    robots: SOURCE_REVIEW_ROBOTS,
   };
 }
 

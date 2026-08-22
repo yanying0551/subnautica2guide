@@ -48,8 +48,8 @@ export const guideRegistry: GuideRegistryEntry[] = [
   {
     slug: "beginner-guide", path: "/guides/beginner-guide",
     title: { en: "Beginner Guide", zh: "新手指南" },
-    description: review("A planned orientation guide; gameplay details are not confirmed.", "计划中的入门指南；玩法细节尚未核实。"),
-    category: "guides", status: "review",
+    description: { en: "A scope-limited starting guide grounded in current public references.", zh: "基于当前公开参考、范围有限的新手入门指南。" },
+    category: "guides", status: "limited",
   },
   {
     slug: "digestive-incompatibility", path: "/guides/digestive-incompatibility",
